@@ -1,0 +1,86 @@
+/* Estilos para Navbar */
+.navbar {
+    background-color: #4CAF50;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between; /* Alinha os itens à esquerda e direita */
+    align-items: center;
+  }
+  
+  .logo-items {
+    display: inline-block;
+  }
+  
+  .logo {
+    color: white;
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .nav-div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .nav-ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+  .nav-li {
+    display: inline-block;
+    margin: 0 15px;
+  }
+  
+  .nav-link {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  
+  .nav-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Estilos para a seção de Login e Cadastro */
+  .auth-ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    margin-left: auto; /* Alinha os links de Login/Cadastro à direita */
+  }
+  
+  .auth-link {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px 10px;
+  }
+  
+  .auth-link:hover {
+    text-decoration: underline;
+    background-color: #333; /* Adiciona um fundo ao passar o mouse */
+    border-radius: 5px;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .nav-ul, .auth-ul {
+      display: block;
+      text-align: center;
+    }
+  
+    .nav-li {
+      margin: 10px 0;
+    }
+  
+    .auth-ul {
+      margin-left: 0;
+    }
+  }
+  
