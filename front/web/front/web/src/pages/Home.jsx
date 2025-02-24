@@ -2,13 +2,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './home.css';
+import logo from '/src/assets/spendwisr.png';
 
 function Home() {
   return (
     <div className='navbar'>
       <div className='logo-items'>
         <Link to="/" style={{ textDecoration: 'none' }}>
-          <h1 className='logo'>Spendwise</h1>
+          <h1 className='logo'>Spendwise.</h1>
         </Link>
       </div>
 
