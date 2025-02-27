@@ -3,41 +3,39 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './home.css';
 import logo from '/src/assets/spendwisr.png';
+import celular from '/src/assets/celular.png'
 
 function Home() {
   return (
-    <div className='navbar'>
-      <div className='logo-items'>
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <h1 className='logo'>Spendwise.</h1>
-        </Link>
-      </div>
-
-      <div className='nav-div'>
-        <ul className='nav-ul'>
-          <li className='nav-li'>
-            <Link to="/conta" className="nav-link">Conta</Link>
-          </li>
-          <li className='nav-li'>
-            <Link to="/sobre" className="nav-link">Dashboard</Link>
-          </li>
-          <li className='nav-li'>
-            <Link to="/criar-conta" className="nav-link">Sobre</Link>
-          </li>
-        </ul>
-
-        {/* Seção separada para Login e Cadastro, mas ainda na mesma linha */}
-        <ul className='auth-ul'>
-          <li className='nav-li'>
-            <Link to="/cadastrar" className="nav-link auth-link">Cadastre-se</Link>
-          </li>
-          <li className='nav-li'>
-            <Link to="/logar" className="nav-link auth-link">Login</Link>
-          </li>
-        </ul>
+    <div className="container">
+      {/* Navbar */}
+      <nav className="navbar">
+        <div className="logo">Spendwise</div>
+        <div className="menu">
+          <a href="#">Conta</a>
+          <a href="#">Dashboard</a>
+          <a href="#">Sobre</a>
+          <a href="#">Cadastro</a>
+          <button className="login-button">Login</button>
+        </div>
+      </nav>
+      
+      {/* Hero Section */}
+      <div className="hero">
+      <div className="hero-image">
+          <img src={celular} alt="Spendwise app" id='celular'/>
+        </div>
+        <div className="hero-text">
+          <h1>Controle Suas Finanças com o <span className="highlight">Spendwise</span></h1>
+          <p>Gerencie seus gastos, economize mais e alcance seus objetivos financeiros com facilidade. Organize seu orçamento, acompanhe suas despesas e visualize gráficos de progresso para saber exatamente onde está o seu dinheiro. Com o Spendwise, você pode tomar decisões mais inteligentes e alcançar a saúde financeira de forma eficiente e prática.</p>
+          <div className='buttons'>
+            <button className='button-start'>Começar</button>
+            <button className='button-plans'>Planos</button>
+          </div>
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default Home;
