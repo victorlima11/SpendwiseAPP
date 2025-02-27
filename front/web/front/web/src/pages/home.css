@@ -5,28 +5,28 @@
   min-height: 100vh;
   background-color: white;
   color: black;
-  padding: 20px;
+  padding: 2rem;
 }
 
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
+  padding: 1rem 2rem;
   border-bottom: 2px solid #ddd;
 }
 
 .logo {
-  font-size: 24px;
+  font-size: 2rem;
   font-weight: bold;
   color: #32cd32;
 }
 
 .menu a {
-  margin: 0 15px;
+  margin: 0 1rem;
   text-decoration: none;
   color: #32cd32;
-  font-size: 18px;
+  font-size: 1rem;
 }
 
 .menu a:hover {
@@ -35,11 +35,11 @@
 
 .login-button {
   border: 2px solid #32cd32;
-  padding: 8px 16px;
-  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
   background: none;
   color: #32cd32;
-  font-size: 16px;
+  font-size: 1rem;
   cursor: pointer;
 }
 
@@ -51,22 +51,24 @@
 /* Hero Section */
 .hero {
   display: flex;
+  flex-wrap: wrap; /* Permite que o texto e a imagem se ajustem melhor */
   align-items: center;
   justify-content: space-between;
-  padding: 50px;
+  padding: 3rem;
 }
 
 .hero-text {
   margin-top: 3em;
-  width: 55%;
+  width: 50%; /* Ajuste o valor para que o texto ocupe um espaço adequado */
+  min-width: 300px; /* Garante que o texto tenha um mínimo de largura */
 }
 
 .hero-text h1 {
-  font-size: 36px;
+  font-size: 20px; /* Usando rem para ajustar conforme o tamanho da fonte base */
 }
 
 .hero-text p {
-  font-size: 16px;
+  font-size: 12px;
   color: gray;
   word-wrap: break-word;
   text-align: left;
@@ -76,67 +78,224 @@
   color: #32cd32;
   text-decoration: underline;
 }
-.hero-image{
+
+.hero-image {
   max-width: 600px;
   max-height: 600px;
   display: flex;
   justify-content: center;
+  width: 45%; /* Ajusta o tamanho da imagem em relação ao texto */
+  min-width: 300px; /* Garante que a imagem tenha um mínimo de largura */
 }
 
-#celular{
-  margin-top: 10em;
-  margin-left: 20em;
-  width: auto;
-  height: 900px;
+
+
+#celular {
+  margin-top: 1em;
+  margin-left: 20%;
+  width: 90vw;
+  height: 70vh; /* Usando vh para definir a altura da imagem em relação à tela */
 }
 
-.buttons{
+.buttons {
   display: flex;
   justify-content: start;
-  gap: 3em;
+  gap: 3rem;
 }
 
-.button-start{
+.button-start {
   font-family: "JetBrains Mono", serif;
   background-color: #32cd32;
   border: solid #32cd32 2px;
   border-radius: 50px;
-  width: 120px;
-  height: 35px;
+  width: 150px; /* Usando rem para largura */
+  height: 40px; /* Usando rem para altura */
   color: white;
-  font-size: 15px;
-  padding-left: 10px;
-  padding-right: 10px;
+  font-size: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   transition: all 0.3s ease;
 }
 
-.button-start:hover{
+.button-start:hover {
   cursor: pointer;
   background-color: #fff;
   border: solid #32cd32 2px;
   color: #32cd32;
 }
 
-.button-plans{
+.button-plans {
   font-family: "JetBrains Mono", serif;
   background-color: #fff;
   border: solid #32cd32 2px;
   border-radius: 50px;
-  width: 120px;
-  height: 35px;
+  width: 150px;
+  height: 40px;
   color: #32cd32;
-  font-size: 15px;
-  padding-left: 10px;
-  padding-right: 10px;
+  font-size: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   transition: all 0.3s ease;
 }
 
-.button-plans:hover{
+.button-plans:hover {
   cursor: pointer;
   background-color: #32cd32;
   color: #fff;
 }
 
+/* Responsividade */
+@media (max-width: 1200px) {
+  .hero {
+    flex-direction: column;
+    padding: 3rem;
+  }
 
+  .hero-text {
+    width: 80%;
+    text-align: center;
+  }
 
+  .hero-text h1 {
+    font-size: 16px;
+  }
 
+  .hero-text p {
+    font-size: 12px;
+  }
+
+  .hero-image {
+    max-width: 50%;
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .button-start, .button-plans {
+    width: 5rem;
+    margin: 1rem 0;
+  }
+
+  #celular {
+    margin-left: 0;
+    width: 90%;
+    height: auto;
+  }
+}
+
+@media (max-width: 992px) {
+  .navbar {
+    padding: 1rem 2rem;
+  }
+
+  .menu a {
+    font-size: 0.9rem;
+    margin: 0 1rem;
+  }
+
+  .hero-text h1 {
+    font-size: 1.75rem;
+  }
+
+  .hero-text p {
+    font-size: 1rem;
+  }
+
+  .hero-image {
+    max-width: 50%;
+  }
+
+  .buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 2em;
+  }
+
+  .button-start, .button-plans {
+    width: 13rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .menu a {
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+  }
+
+  .hero {
+    flex-direction: column;
+    padding: 2rem;
+  }
+
+  .hero-text {
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .hero-text h1 {
+    font-size: 1.5rem;
+  }
+
+  .hero-text p {
+    font-size: 0.9rem;
+  }
+
+  .buttons {
+    gap: 2em;
+    align-items: center;
+  }
+
+  .button-start, .button-plans {
+    width: 12rem;
+  }
+
+  #celular {
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 1rem;
+  }
+
+  .menu a {
+    font-size: 0.8rem;
+  }
+
+  .hero-text h1 {
+    font-size: 1.25rem;
+  }
+
+  .hero-text p {
+    font-size: 0.85rem;
+  }
+
+  .hero-image {
+    max-width: 100%;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 1.5em;
+    align-items: center;
+  }
+
+  .button-start, .button-plans {
+    width: 10rem;
+    font-size: 0.9rem;
+  }
+}
