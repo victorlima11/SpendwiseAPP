@@ -15,8 +15,10 @@ function Home() {
           <a href="#">Conta</a>
           <a href="#">Dashboard</a>
           <a href="#">Sobre</a>
-          <a href="#">Cadastro</a>
-          <button className="login-button">Login</button>
+          <a href="/register">Cadastro</a>
+          <button className="login-button">
+            <Link to="/login">Login</Link>
+          </button>
         </div>
       </nav>
       

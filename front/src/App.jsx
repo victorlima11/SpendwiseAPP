@@ -4,16 +4,16 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 // Importar as páginas
 import Home from './pages/Home';
-import Sobre from './pages/Sobre';
-import Contato from './pages/Contato';
+import Login from "./pages/Login";
+import Register from "./pages/Register"
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/sobre" element={<Sobre />} />
-        <Route path="/contato" element={<Contato />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
   );
