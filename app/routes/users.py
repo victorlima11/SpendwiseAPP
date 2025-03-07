@@ -36,7 +36,6 @@ def login(user: schemas.User_Login, db: Session = Depends(get_db)):
     access_token = create_access_token(data={"sub": db_user.email}, expires_delta=timedelta(minutes=30))
     return {"access_token": access_token, "token_type": "bearer"}
 
-
 @router.get("/", response_model=list[schemas.User_Response])
 def get_users(db: Session = Depends(get_db)):
     return db.query(models.User).all()
@@ -56,38 +55,46 @@ def get_profile(user: dict = Depends(get_current_user)):
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
+def get_user_from_token(db, token: str):
+    try:
+        # Verificar o token e obter os dados do usuário
+        user = verify_token(token)
+        
+        # Verificar se o token retornou um usuário válido
+        if user is None:
+            raise ValueError("Token inválido ou expirado")
+
+        # Verificar o banco de dados para encontrar o usuário usando o e-mail
+        db_user = db.query(models.User).filter(models.User.email == user['sub']).first()
+
+        if db_user is None:
+            raise ValueError("Usuário não encontrado")
+
+        return db_user
+
+    except ValueError as e:
+        # Caso o token seja inválido ou o usuário não seja encontrado
+        raise ValueError(f"Erro ao autenticar usuário: {str(e)}")
+    except Exception as e:
+        # Captura qualquer outro erro não esperado
+        raise Exception(f"Erro inesperado: {str(e)}")
+
+
 @router.get("/despesas/", response_model=list[schemas.Despesa_Response])
 def get_despesas(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    # Decodifique o token e obtenha o e-mail do usuário autenticado
-    user = verify_token(token)  # Função para decodificar o token e obter os dados do usuário
-    db_user = db.query(models.User).filter(models.User.email == user['sub']).first()
-
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="Usuário não encontrado")
-
+    db_user = get_user_from_token(db, token)
     despesas = db.query(models.Despesa).filter(models.Despesa.user_id == db_user.id).all()
     return despesas
 
 @router.get("/rendimentos/", response_model=list[schemas.Rendimento_Response])
 def get_rendimentos(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    # Decodifique o token e obtenha o e-mail do usuário autenticado
-    user = verify_token(token)  # Função para decodificar o token e obter os dados do usuário
-    db_user = db.query(models.User).filter(models.User.email == user['sub']).first()
-
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="Usuário não encontrado")
-
+    db_user = get_user_from_token(db, token)
     rendimentos = db.query(models.Rendimento).filter(models.Rendimento.user_id == db_user.id).all()
     return rendimentos
 
 @router.post("/despesas/", response_model=schemas.Despesa_Response)
 def add_despesa(despesa: schemas.Despesa_Create, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    user = verify_token(token)  # Decodifica o token para pegar o e-mail do usuário
-    db_user = db.query(models.User).filter(models.User.email == user['sub']).first()
-
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="Usuário não encontrado")
-
+    db_user = get_user_from_token(db, token)
     new_despesa = models.Despesa(
         user_id=db_user.id,
         amount=despesa.amount,
@@ -95,7 +102,6 @@ def add_despesa(despesa: schemas.Despesa_Create, db: Session = Depends(get_db), 
         description=despesa.description,
         date=despesa.date
     )
-
     db.add(new_despesa)
     db.commit()
     db.refresh(new_despesa)
@@ -104,12 +110,7 @@ def add_despesa(despesa: schemas.Despesa_Create, db: Session = Depends(get_db), 
 
 @router.post("/rendimentos/", response_model=schemas.Rendimento_Response)
 def add_rendimento(rendimento: schemas.Rendimento_Create, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    user = verify_token(token)  # Decodifica o token para pegar o e-mail do usuário
-    db_user = db.query(models.User).filter(models.User.email == user['sub']).first()
-
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="Usuário não encontrado")
-
+    db_user = get_user_from_token(db, token)
     new_rendimento = models.Rendimento(
         user_id=db_user.id,
         amount=rendimento.amount,
@@ -117,47 +118,18 @@ def add_rendimento(rendimento: schemas.Rendimento_Create, db: Session = Depends(
         description=rendimento.description,
         date=rendimento.date
     )
-
     db.add(new_rendimento)
     db.commit()
     db.refresh(new_rendimento)
 
     return new_rendimento
 
-@router.get("/despesas/", response_model=list[schemas.Despesa_Response])
-def get_despesas(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    user = verify_token(token)  # Decodifica o token para pegar o e-mail do usuário
-    db_user = db.query(models.User).filter(models.User.email == user['sub']).first()
-
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="Usuário não encontrado")
-
-    despesas = db.query(models.Despesa).filter(models.Despesa.user_id == db_user.id).all()
-    return despesas
-
-@router.get("/rendimentos/", response_model=list[schemas.Rendimento_Response])
-def get_rendimentos(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    user = verify_token(token)  # Decodifica o token para pegar o e-mail do usuário
-    db_user = db.query(models.User).filter(models.User.email == user['sub']).first()
-
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="Usuário não encontrado")
-
-    rendimentos = db.query(models.Rendimento).filter(models.Rendimento.user_id == db_user.id).all()
-    return rendimentos
-
 @router.get("/saldo/", response_model=dict)
 def get_saldo(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    user = verify_token(token)  # Decodifica o token para pegar o e-mail do usuário
-    db_user = db.query(models.User).filter(models.User.email == user['sub']).first()
-
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="Usuário não encontrado")
-
+    db_user = get_user_from_token(db, token)
     total_rendimentos = db.query(models.Rendimento).filter(models.Rendimento.user_id == db_user.id).all()
     total_rendimento = sum([r.amount for r in total_rendimentos])
 
-    # Soma as despesas
     total_despesas = db.query(models.Despesa).filter(models.Despesa.user_id == db_user.id).all()
     total_despesa = sum([d.amount for d in total_despesas])
 
@@ -167,18 +139,12 @@ def get_saldo(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)
 
 @router.put("/despesas/{despesa_id}/", response_model=schemas.Despesa_Response)
 def edit_despesa(despesa_id: int, despesa: schemas.Despesa_Create, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    user = verify_token(token)  # Decodifica o token para pegar o e-mail do usuário
-    db_user = db.query(models.User).filter(models.User.email == user['sub']).first()
-
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="Usuário não encontrado")
-
+    db_user = get_user_from_token(db, token)
     existing_despesa = db.query(models.Despesa).filter(models.Despesa.id == despesa_id, models.Despesa.user_id == db_user.id).first()
 
     if not existing_despesa:
         raise HTTPException(status_code=404, detail="Despesa não encontrada")
 
-    # Atualizando os dados da despesa
     existing_despesa.amount = despesa.amount
     existing_despesa.category = despesa.category
     existing_despesa.description = despesa.description
@@ -191,18 +157,12 @@ def edit_despesa(despesa_id: int, despesa: schemas.Despesa_Create, db: Session =
 
 @router.put("/rendimentos/{rendimento_id}/", response_model=schemas.Rendimento_Response)
 def edit_rendimento(rendimento_id: int, rendimento: schemas.Rendimento_Create, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    user = verify_token(token)  # Decodifica o token para pegar o e-mail do usuário
-    db_user = db.query(models.User).filter(models.User.email == user['sub']).first()
-
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="Usuário não encontrado")
-
+    db_user = get_user_from_token(db, token)
     existing_rendimento = db.query(models.Rendimento).filter(models.Rendimento.id == rendimento_id, models.Rendimento.user_id == db_user.id).first()
 
     if not existing_rendimento:
         raise HTTPException(status_code=404, detail="Rendimento não encontrado")
 
-    # Atualizando os dados do rendimento
     existing_rendimento.amount = rendimento.amount
     existing_rendimento.category = rendimento.category
     existing_rendimento.description = rendimento.description
@@ -215,12 +175,7 @@ def edit_rendimento(rendimento_id: int, rendimento: schemas.Rendimento_Create, d
 
 @router.delete("/rendimentos/{rendimento_id}/")
 def delete_rendimento(rendimento_id: int, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    user = verify_token(token)  # Decodifica o token para pegar o e-mail do usuário
-    db_user = db.query(models.User).filter(models.User.email == user['sub']).first()
-
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="Usuário não encontrado")
-
+    db_user = get_user_from_token(db, token)
     existing_rendimento = db.query(models.Rendimento).filter(models.Rendimento.id == rendimento_id, models.Rendimento.user_id == db_user.id).first()
 
     if not existing_rendimento:
@@ -233,12 +188,7 @@ def delete_rendimento(rendimento_id: int, db: Session = Depends(get_db), token: 
 
 @router.delete("/despesas/{despesa_id}/")
 def delete_despesa(despesa_id: int, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    user = verify_token(token)  # Decodifica o token para pegar o e-mail do usuário
-    db_user = db.query(models.User).filter(models.User.email == user['sub']).first()
-
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="Usuário não encontrado")
-
+    db_user = get_user_from_token(db, token)
     existing_despesa = db.query(models.Despesa).filter(models.Despesa.id == despesa_id, models.Despesa.user_id == db_user.id).first()
 
     if not existing_despesa:
@@ -248,4 +198,3 @@ def delete_despesa(despesa_id: int, db: Session = Depends(get_db), token: str = 
     db.commit()
 
     return {"detail": "Despesa excluída com sucesso"}
-
