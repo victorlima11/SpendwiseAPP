@@ -12,11 +12,18 @@ const Login = () => {
 
     try {
       const response = await axios.post("http://localhost:8000/users/login/", { email, password });
-      const { token } = response.data;
+      console.log("Resposta do backend:", response.data); // Adicione este log para verificar a resposta
+      const { access_token } = response.data; // Corrija para "access_token"
 
-      localStorage.setItem("token", token); // Salva o token no armazenamento local
-      navigate("/dashboard"); // Redireciona para a página protegida
+      if (access_token) {
+        localStorage.setItem("token", access_token); // Salva o token corretamente
+        console.log("Token salvo no localStorage:", access_token); // Confirme que foi salvo
+        navigate("/dashboard"); // Redireciona para o dashboard
+      } else {
+        throw new Error("Nenhum access_token recebido na resposta");
+      }
     } catch (error) {
+      console.error("Erro no login:", error.response ? error.response.data : error.message);
       alert("Login falhou! Verifique suas credenciais.");
     }
   };
@@ -25,8 +32,20 @@ const Login = () => {
     <div>
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
-        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <input type="password" placeholder="Senha" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Senha"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
         <button type="submit">Entrar</button>
       </form>
     </div>

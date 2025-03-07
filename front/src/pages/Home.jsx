@@ -13,7 +13,7 @@ function Home() {
         <div className="logo">Spendwise</div>
         <div className="menu">
           <a href="#">Conta</a>
-          <a href="#">Dashboard</a>
+          <a href="/dashboard">Dashboard</a>
           <a href="#">Sobre</a>
           <a href="/register">Cadastro</a>
           <button className="login-button">

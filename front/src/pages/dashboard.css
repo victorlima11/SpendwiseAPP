@@ -1,0 +1,58 @@
+.dashboard-container {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .dashboard-content {
+    width: 80%;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .cards-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .card {
+    width: 30%;
+    padding: 20px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .charts-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .chart-card {
+    width: 45%;
+    margin-bottom: 20px;
+  }
+  
+  .buttons {
+    margin-top: 20px;
+  }
+  
+  .button-add, .button-report {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  
+  .button-add:hover, .button-report:hover {
+    background-color: #45a049;
+  }
+  
+  .logout-button {
+    color: #f44336;
+  }
+  

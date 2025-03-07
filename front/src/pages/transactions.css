@@ -1,0 +1,41 @@
+/* src/pages/historico.css */
+.historico-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .transacoes-list {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .transacao-card {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .transacao-card h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  
+  .transacao-card p {
+    margin: 5px 0;
+  }
+  
+  .buttons button {
+    margin-right: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  .buttons button:hover {
+    background-color: #0056b3;
+  }
+  
