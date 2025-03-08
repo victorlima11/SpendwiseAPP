@@ -1,19 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+/* Definições Gerais */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
 .container {
   font-family: "JetBrains Mono", serif;
   min-height: 100vh;
-  background-color: white;
   color: black;
-  padding: 2rem;
 }
 
+/* Navbar fixada no topo */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
   border-bottom: 2px solid #ddd;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: white;
 }
 
 .logo {
@@ -62,253 +72,126 @@
 
 /* Hero Section */
 .hero {
-  display: flex;
-  flex-wrap: wrap; /* Permite que o texto e a imagem se ajustem melhor */
-  align-items: center;
-  justify-content: space-between;
-  padding: 3rem;
+  position: relative;
+  padding: 100px 20px;
+  color: white;
+  text-align: center;
+}
+
+#box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  transition: opacity 1s ease; /* Transição suave */
 }
 
 .hero-text {
-  margin-top: 3em;
-  width: 50%; /* Ajuste o valor para que o texto ocupe um espaço adequado */
-  min-width: 300px; /* Garante que o texto tenha um mínimo de largura */
+  position: relative;
+  z-index: 10;
 }
 
-.hero-text h1 {
-  font-size: 20px; /* Usando rem para ajustar conforme o tamanho da fonte base */
+.hero h1 {
+  font-size: 3rem;
 }
 
-.hero-text p {
-  font-size: 12px;
-  color: gray;
-  word-wrap: break-word;
-  text-align: left;
-}
-
-.highlight {
-  color: #32cd32;
-  text-decoration: underline;
-}
-
-.hero-image {
-  max-width: 600px;
-  max-height: 600px;
-  display: flex;
-  justify-content: center;
-  width: 45%; /* Ajusta o tamanho da imagem em relação ao texto */
-  min-width: 300px; /* Garante que a imagem tenha um mínimo de largura */
-}
-
-
-
-#celular {
-  margin-top: 1em;
-  margin-left: 20%;
-  width: 90vw;
-  height: 70vh; /* Usando vh para definir a altura da imagem em relação à tela */
+.hero p {
+  font-size: 1.25rem;
+  margin-top: 1rem;
 }
 
 .buttons {
-  display: flex;
-  justify-content: start;
-  gap: 3rem;
+  margin-top: 2rem;
 }
 
-.button-start {
-  font-family: "JetBrains Mono", serif;
+.button-start, .button-plans {
   background-color: #32cd32;
-  border: solid #32cd32 2px;
-  border-radius: 50px;
-  width: 150px; /* Usando rem para largura */
-  height: 40px; /* Usando rem para altura */
+  border: none;
+  padding: 1rem 2rem;
   color: white;
   font-size: 1rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  transition: all 0.3s ease;
-}
-
-.button-start:hover {
   cursor: pointer;
-  background-color: #fff;
-  border: solid #32cd32 2px;
-  color: #32cd32;
+  border-radius: 0.5rem;
+  transition: 0.3s;
 }
 
-.button-plans {
-  font-family: "JetBrains Mono", serif;
-  background-color: #fff;
-  border: solid #32cd32 2px;
-  border-radius: 50px;
-  width: 150px;
-  height: 40px;
-  color: #32cd32;
-  font-size: 1rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  transition: all 0.3s ease;
+.button-start:hover, .button-plans:hover {
+  background-color: #28a745;
 }
 
-.button-plans:hover {
+/* Nova Seção com fundo diferente */
+.new-section {
+  padding: 80px 20px;
+  background-color: #f4f4f4; /* Fundo claro para a nova seção */
+}
+
+.new-section-content {
+  text-align: center;
+}
+
+.new-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.new-section p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.button-new-section {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  color: #32cd32;
+  background-color: transparent;
+  border: 2px solid #32cd32;
+  border-radius: 0.5rem;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.button-new-section:hover {
   background-color: #32cd32;
-  color: #fff;
+  color: white;
 }
-
 
 /* Responsividade */
 @media (max-width: 1200px) {
   .hero {
-    flex-direction: column;
-    padding: 3rem;
+    padding: 80px 20px;
   }
 
-  .hero-text {
-    width: 80%;
-    text-align: center;
-  }
-
-  .hero-text h1 {
-    font-size: 16px;
-  }
-
-  .hero-text p {
-    font-size: 12px;
-  }
-
-  .hero-image {
-    max-width: 50%;
-    width: 80%;
-    margin: 0 auto;
-  }
-
-  .buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .button-start, .button-plans {
-    width: 5rem;
-    margin: 1rem 0;
-  }
-
-  #celular {
-    margin-left: 0;
-    width: 90%;
-    height: auto;
-  }
-}
-
-@media (max-width: 992px) {
-  .navbar {
-    padding: 1rem 2rem;
-  }
-
-  .menu a {
-    font-size: 0.9rem;
-    margin: 0 1rem;
-  }
-
-  .hero-text h1 {
-    font-size: 1.75rem;
-  }
-
-  .hero-text p {
-    font-size: 1rem;
-  }
-
-  .hero-image {
-    max-width: 50%;
-  }
-
-  .buttons {
-    flex-direction: column;
-    align-items: center;
-    gap: 2em;
-  }
-
-  .button-start, .button-plans {
-    width: 13rem;
+  .new-section {
+    padding: 60px 20px;
   }
 }
 
 @media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 1rem;
+  .hero h1 {
+    font-size: 2.5rem;
   }
 
-  .menu a {
-    font-size: 0.9rem;
-    margin: 0.5rem 0;
+  .hero p {
+    font-size: 1rem;
   }
 
-  .hero {
-    flex-direction: column;
-    padding: 2rem;
+  .new-section h2 {
+    font-size: 2rem;
   }
 
-  .hero-text {
-    width: 100%;
-    text-align: center;
-    margin-top: 1rem;
-  }
-
-  .hero-text h1 {
-    font-size: 1.5rem;
-  }
-
-  .hero-text p {
-    font-size: 0.9rem;
+  .new-section p {
+    font-size: 1rem;
   }
 
   .buttons {
-    gap: 2em;
-    align-items: center;
-  }
-
-  .button-start, .button-plans {
-    width: 12rem;
-  }
-
-  #celular {
-    margin-left: 0;
-    width: 100%;
-    height: auto;
-  }
-}
-
-@media (max-width: 480px) {
-  .navbar {
-    padding: 1rem;
-  }
-
-  .menu a {
-    font-size: 0.8rem;
-  }
-
-  .hero-text h1 {
-    font-size: 1.25rem;
-  }
-
-  .hero-text p {
-    font-size: 0.85rem;
-  }
-
-  .hero-image {
-    max-width: 100%;
-  }
-
-  .buttons {
+    display: flex;
     flex-direction: column;
-    gap: 1.5em;
-    align-items: center;
+    gap: 1rem;
   }
 
   .button-start, .button-plans {
-    width: 10rem;
-    font-size: 0.9rem;
+    width: 100%;
   }
 }
