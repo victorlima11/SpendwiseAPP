@@ -37,13 +37,11 @@ function Home() {
       <nav className="navbar">
         <div className="logo">Spendwise</div>
         <div className="menu">
-          <a href="#">Conta</a>
-          <a href="/dashboard">Dashboard</a>
-          <a href="#">Sobre</a>
-          <a href="/register">Cadastro</a>
-          <button className="login-button">
-            <Link to="/login">Login</Link>
-          </button>
+          <a href="#" className='nav-items'>Conta</a>
+          <a href="/dashboard" className='nav-items'>Dashboard</a>
+          <a href="#" className='nav-items'>Sobre</a>
+          <a href="/register" className='nav-items'>Cadastro</a>
+          <Link className="login-button" to="/login">Login</Link>
         </div>
       </nav>
 
