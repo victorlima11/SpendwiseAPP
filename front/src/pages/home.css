@@ -47,6 +47,9 @@ html, body {
   transition: color 0.3s ease;
 }
 
+.highlight{
+  text-decoration: underline;
+}
 
 
 .login-button {
@@ -136,26 +139,99 @@ html, body {
   color: lightgray;
 }
 
-.buttons {
-  margin-top: 2rem;
-}
-
-.button-start, .button-plans {
-  background-color: #32cd32;
-  border: none;
-  padding: 1rem 2rem;
-  color: white;
-  font-size: 1rem;
+.button-start {
+  position: relative;
+  display: inline-block;
   cursor: pointer;
-  border-radius: 0.5rem;
-  transition: 0.3s;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
+  width: 12rem;
+  height: auto;
 }
 
-.button-start:hover, .button-plans:hover {
-  background-color: #28a745;
+
+.button-start .circle {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: relative;
+  display: block;
+  margin: 0;
+  width: 3rem;
+  height: 3rem;
+  background: #E0E0E0;
+  border-radius: 1.625rem;
 }
 
-/* Nova Seção com fundo diferente */
+.button-start .circle .icon {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background: #282936;
+}
+
+.button-start .circle .icon.arrow {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  left: 0.625rem;
+  width: 1.125rem;
+  height: 0.125rem;
+  background: none;
+}
+
+.button-start .circle .icon.arrow::before {
+  position: absolute;
+  content: "";
+  top: -0.29rem;
+  right: 0.0625rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-top: 0.125rem solid #282936; /* Cor escura */
+  border-right: 0.125rem solid #282936; /* Cor escura */
+  transform: rotate(45deg);
+}
+
+.button-start .button-text {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.75rem 0;
+  margin: 0 0 0 1.85rem;
+  color: #E0E0E0; /* Cor escura */
+  font-weight: 700;
+  line-height: 1.6;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.button-start:hover .circle {
+  width: 100%;
+  background: #0081cf; /* Cor escura ao passar o mouse */
+}
+
+.button-start:hover .circle .icon.arrow {
+  background: #fff; /* Cor branca */
+  transform: translate(1rem, 0);
+}
+
+.button-start:hover .circle .icon.arrow::before {
+  border-top: 0.125rem solid #fff; /* Deixa a ponta da seta branca */
+  border-right: 0.125rem solid #fff;
+}
+
+.button-start:hover .button-text {
+  color: #fff; /* Texto branco para melhor visibilidade */
+}
+
+
 .new-section {
   padding: 80px 20px;
   background-color: #f4f4f4; /* Fundo claro para a nova seção */
@@ -225,7 +301,7 @@ html, body {
     gap: 1rem;
   }
 
-  .button-start, .button-plans {
+  .button-start {
     width: 100%;
   }
 }
