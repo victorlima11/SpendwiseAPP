@@ -274,6 +274,17 @@ html, body {
   height: 32px;
 }
 
+.feature-cards-container{
+  margin: 0;
+  width:400px;
+  height:400px;
+  display:grid;
+  grid-template-columns: 200px 200px;
+  grid-row: auto auto;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .login-button {
     transition: linear;

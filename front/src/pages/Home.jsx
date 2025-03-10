@@ -61,6 +61,31 @@ function Home() {
             <h1 className="feature-h1">Features</h1>
             <p>Esses são os serviços disponíveis por nosso software.</p>
           </div>
+          <div className="feature-cards-container">
+            <div className="feature-cards">
+                <div className="mini-title">
+                  <img className="card-image" src={coin} alt="coin"/>
+                  <p>Teste</p>
+                </div>
+                <div className="feature-card-title">
+                  <h1>Título do card</h1>
+                </div>
+                <div className="feature-card-content">
+                  <p>Esse é o teste de card.</p>
+                </div>
+            </div>
+            <div className="feature-cards">
+              <div className="mini-title">
+                <img className="card-image" src={coin} alt="coin"/>
+                <p>Teste</p>
+              </div>
+              <div className="feature-card-title">
+                <h1>Título do card</h1>
+              </div>
+              <div className="feature-card-content">
+                <p>Esse é o teste de card.</p>
+              </div>
+          </div>
           <div className="feature-cards">
               <div className="mini-title">
                 <img className="card-image" src={coin} alt="coin"/>
@@ -72,6 +97,19 @@ function Home() {
               <div className="feature-card-content">
                 <p>Esse é o teste de card.</p>
               </div>
+          </div>
+          <div className="feature-cards">
+              <div className="mini-title">
+                <img className="card-image" src={coin} alt="coin"/>
+                <p>Teste</p>
+              </div>
+              <div className="feature-card-title">
+                <h1>Título do card</h1>
+              </div>
+              <div className="feature-card-content">
+                <p>Esse é o teste de card.</p>
+              </div>
+          </div>
           </div>
       </div>
     </div>
