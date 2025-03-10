@@ -10,14 +10,12 @@ html, body {
   height: 0px;
 }
 
-/* Container */
 .container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 } 
 
-/* Navbar */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -37,6 +35,7 @@ html, body {
   color: white;
   font-size: 2rem;
   font-weight: bold;
+  cursor: default;
 }
 
 .menu a {
@@ -99,7 +98,7 @@ html, body {
 }
 
 .hero {
-  min-height: 100vh;
+  min-height: 80vh;
   position: relative;
   padding: 100px 20px;
   color: white;
@@ -113,17 +112,18 @@ html, body {
   width: 100%;
   height: 100%;
   z-index: -1;
-  transition: opacity 1s ease; /* Transição suave */
+  transition: opacity 1s ease;
 }
 
 .hero-text {
   margin-top: 20vh;
   margin-left: 10vw;
   display: flex;
-  flex-direction: column; /* Organiza os itens em uma coluna */
-  justify-content: flex-start; /* Alinha os itens no topo */
-  align-items: flex-start; /* Alinha os itens à esquerda */
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
   max-width: 50vw;
+  cursor: default;
 }
 
 
@@ -191,8 +191,8 @@ html, body {
   right: 0.0625rem;
   width: 0.625rem;
   height: 0.625rem;
-  border-top: 0.125rem solid #282936; /* Cor escura */
-  border-right: 0.125rem solid #282936; /* Cor escura */
+  border-top: 0.125rem solid #282936;
+  border-right: 0.125rem solid #282936;
   transform: rotate(45deg);
 }
 
@@ -205,7 +205,7 @@ html, body {
   bottom: 0;
   padding: 0.75rem 0;
   margin: 0 0 0 1.85rem;
-  color: #E0E0E0; /* Cor escura */
+  color: #E0E0E0;
   font-weight: 700;
   line-height: 1.6;
   text-align: center;
@@ -214,96 +214,64 @@ html, body {
 
 .button-start:hover .circle {
   width: 100%;
-  background: #0081cf; /* Cor escura ao passar o mouse */
+  background: #0081cf;
 }
 
 .button-start:hover .circle .icon.arrow {
-  background: #fff; /* Cor branca */
+  background: #fff;
   transform: translate(1rem, 0);
 }
 
 .button-start:hover .circle .icon.arrow::before {
-  border-top: 0.125rem solid #fff; /* Deixa a ponta da seta branca */
+  border-top: 0.125rem solid #fff;
   border-right: 0.125rem solid #fff;
 }
 
 .button-start:hover .button-text {
-  color: #fff; /* Texto branco para melhor visibilidade */
+  color: #fff;
+}
+
+.features-container{
+  display: flex;
+  padding: 12vw 15vh;
+  justify-content: space-between;
+  background-color: #0D0D0D;
+  color: #fff;
+}
+
+.feature-h1{
+  text-align: start;
+}
+.features-title p{
+  text-align: start;
+  font-size: 12px;
+}
+
+.feature-cards{
+  background-color: #191919;
+  border-radius: 10px;
+  padding: 20px;
 }
 
 
-.new-section {
-  padding: 80px 20px;
-  background-color: #f4f4f4; /* Fundo claro para a nova seção */
+.mini-title{
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  font-size: 16px;
+  color: gray;
+  text-transform: uppercase;
+  gap: 10px;
 }
 
-.new-section-content {
-  text-align: center;
+.feature-card-title{
+  text-align: start;
+  font-size: 12px;
 }
 
-.new-section h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-.new-section p {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-}
-
-.button-new-section {
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
-  color: #32cd32;
-  background-color: transparent;
-  border: 2px solid #32cd32;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.button-new-section:hover {
-  background-color: #32cd32;
-  color: white;
-}
-
-/* Responsividade */
-@media (max-width: 1200px) {
-  .hero {
-    padding: 80px 20px;
-  }
-
-  .new-section {
-    padding: 60px 20px;
-  }
-}
-
-@media (max-width: 768px) {
-  .hero h1 {
-    font-size: 2.5rem;
-  }
-
-  .hero p {
-    font-size: 1rem;
-  }
-
-  .new-section h2 {
-    font-size: 2rem;
-  }
-
-  .new-section p {
-    font-size: 1rem;
-  }
-
-  .buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .button-start {
-    width: 100%;
-  }
+.card-image{
+  width: 32px;
+  height: 32px;
 }
 
 @media (prefers-reduced-motion: reduce) {
