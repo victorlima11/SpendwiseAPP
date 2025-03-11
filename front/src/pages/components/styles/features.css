@@ -65,7 +65,6 @@
   white-space: normal;
 }
 
-/* Responsividade */
 @media (min-width: 768px) {
   .features-container {
     flex-wrap: nowrap;
