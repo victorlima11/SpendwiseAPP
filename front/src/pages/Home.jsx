@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './home.css';
-import coin from "/src/assets/coin.png"
-// Importando o módulo do efeito de gradiente borrado
+import audit from "/src/assets/audit.png"
+import lamp from "/src/assets/lamp.png"
+import monitor from "/src/assets/monitor.png"
+import Navbar from '/src/pages/components/Navbar';
+
+
 import { BlurGradientBg } from '../assets/BlurGradientBg.module.js';
 
 function Home() {
@@ -28,18 +32,7 @@ function Home() {
 
   return (
     <div className="container">
-      {/* Navegação */}
-      <nav className="navbar">
-        <div className="logo">Spendwise</div>
-        <div className="menu">
-          <a href="#" className='nav-items'>Conta</a>
-          <a href="/dashboard" className='nav-items'>Dashboard</a>
-          <a href="#" className='nav-items'>Sobre</a>
-          <a href="/register" className='nav-items'>Cadastro</a>
-          <Link className="login-button" to="/login">Login</Link>
-        </div>
-      </nav>
-
+      <Navbar />
       <div className="hero">
         <div id="box"></div>
         <div className="hero-text">
@@ -60,54 +53,52 @@ function Home() {
           <div className="features-title">
             <h1 className="feature-h1">Features</h1>
             <p>Esses são os serviços disponíveis por nosso software.</p>
+            <div className="feature-text">
+              <h2>Facilidade e agilidade ao seu alcance.</h2>
+            </div>
+            <div className="sobre-content">
+              <h1>Sobre</h1>
+              <h2>Projeto Spendwise.</h2>
+              <p>Este projeto foi feito com a finalidade de aprendizado de sistemas web, desde a criação do Front-End usando react, quanto também funcionamento de APIs RESTFUL usando python como Back-End.</p>
+            </div>
           </div>
           <div className="feature-cards-container">
             <div className="feature-cards">
                 <div className="mini-title">
-                  <img className="card-image" src={coin} alt="coin"/>
-                  <p>Teste</p>
+                  <img className="card-image" src={audit} alt="coin"/>
+                  <p>Visualização</p>
                 </div>
                 <div className="feature-card-title">
-                  <h1>Título do card</h1>
+                  <h1>Visualize e Planeje seus gastos.</h1>
                 </div>
                 <div className="feature-card-content">
-                  <p>Esse é o teste de card.</p>
+                  <p>Com o Spendwise, você tem o poder de organizar e controlar suas finanças de maneira eficiente. O mapeamento detalhado de suas transações permite que você acompanhe seus gastos de forma clara e precisa.
+                  Organize seus Relatórios.</p>
                 </div>
             </div>
             <div className="feature-cards">
               <div className="mini-title">
-                <img className="card-image" src={coin} alt="coin"/>
-                <p>Teste</p>
+                <img className="card-image" src={lamp} alt="coin"/>
+                <p>Organização</p>
               </div>
               <div className="feature-card-title">
-                <h1>Título do card</h1>
+                <h1>Organize seus Relatórios.</h1>
               </div>
               <div className="feature-card-content">
-                <p>Esse é o teste de card.</p>
+                <p>Gere relatórios detalhados sobre seus gastos, com gráficos e resumos de transações. Facilite o acompanhamento de sua saúde financeira
+                Defina Orçamentos.</p>
               </div>
           </div>
           <div className="feature-cards">
               <div className="mini-title">
-                <img className="card-image" src={coin} alt="coin"/>
-                <p>Teste</p>
+                <img className="card-image" src={monitor} alt="coin"/>
+                <p>Monitoração</p>
               </div>
               <div className="feature-card-title">
-                <h1>Título do card</h1>
+                <h1>Acompanhe Metas.</h1>
               </div>
               <div className="feature-card-content">
-                <p>Esse é o teste de card.</p>
-              </div>
-          </div>
-          <div className="feature-cards">
-              <div className="mini-title">
-                <img className="card-image" src={coin} alt="coin"/>
-                <p>Teste</p>
-              </div>
-              <div className="feature-card-title">
-                <h1>Título do card</h1>
-              </div>
-              <div className="feature-card-content">
-                <p>Esse é o teste de card.</p>
+                <p>Monitore o progresso de suas metas financeiras com relatórios atualizados sobre o status de cada objetivo.</p>
               </div>
           </div>
           </div>

@@ -234,7 +234,7 @@ html, body {
 .features-container{
   display: flex;
   padding: 12vw 15vh;
-  justify-content: space-between;
+  justify-content: space-evenly;
   background-color: #0D0D0D;
   color: #fff;
 }
@@ -242,9 +242,10 @@ html, body {
 .feature-h1{
   text-align: start;
 }
+
 .features-title p{
   text-align: start;
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .feature-cards{
@@ -252,7 +253,6 @@ html, body {
   border-radius: 10px;
   padding: 20px;
 }
-
 
 .mini-title{
   display: flex;
@@ -276,13 +276,23 @@ html, body {
 
 .feature-cards-container{
   margin: 0;
-  width:400px;
-  height:400px;
-  display:grid;
-  grid-template-columns: 200px 200px;
+  width: 500px;
+  display: flex;
+  flex-wrap: wrap;
   grid-row: auto auto;
   grid-column-gap: 20px;
   grid-row-gap: 20px;
+}
+
+.feature-text{
+  border-bottom: solid 1px #fff;
+}
+
+.sobre-content p{
+  width: 50ch; /* Define a largura com base no número de caracteres */
+  word-wrap: break-word; /* Permite quebrar palavras se necessário */
+  overflow-wrap: break-word;
+  white-space: normal; /* Garante que o texto pode quebrar */
 }
 
 @media (prefers-reduced-motion: reduce) {
