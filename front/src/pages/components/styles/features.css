@@ -1,27 +1,32 @@
-.features-container{
+.features-container {
   display: flex;
-  padding: 12vw 15vh;
-  justify-content: space-evenly;
+  flex-wrap: wrap;
+  padding: 12vw 10vw;
+  justify-content: center;
   background-color: #0D0D0D;
   color: #fff;
-}
-
-.feature-h1{
+  gap: 20px;
   text-align: start;
 }
 
-.features-title p{
+.feature-h1 {
+  text-align: start;
+}
+
+.features-title p {
   text-align: start;
   font-size: 16px;
 }
 
-.feature-cards{
+.feature-cards {
   background-color: #191919;
   border-radius: 10px;
   padding: 20px;
+  max-width: 350px;
+  width: 100%;
 }
 
-.mini-title{
+.mini-title {
   display: flex;
   align-items: center;
   justify-content: start;
@@ -31,33 +36,45 @@
   gap: 10px;
 }
 
-.feature-card-title{
+.feature-card-title {
   text-align: start;
   font-size: 12px;
 }
 
-.card-image{
+.card-image {
   width: 32px;
   height: 32px;
 }
 
-.feature-cards-container{
-  margin: 0;
-  width: 500px;
+.feature-cards-container {
   display: flex;
   flex-wrap: wrap;
-  grid-row: auto auto;
-  grid-column-gap: 20px;
-  grid-row-gap: 20px;
+  justify-content: start;
+  gap: 20px;
+  max-width: 800px;
 }
 
-.feature-text{
+.feature-text {
   border-bottom: solid 1px #fff;
 }
 
-.sobre-content p{
-  width: 50ch;
+.sobre-content p {
+  max-width: 90%;
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: normal;
+}
+
+/* Responsividade */
+@media (min-width: 768px) {
+  .features-container {
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+  }
+  .feature-h1, .features-title p {
+    text-align: start;
+  }
+  .feature-cards-container {
+    justify-content: flex-start;
+  }
 }
