@@ -16,7 +16,7 @@ html, body {
   flex-direction: column;
 } 
 
-.navbar {
+/* .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -289,14 +289,14 @@ html, body {
 }
 
 .sobre-content p{
-  width: 50ch; /* Define a largura com base no número de caracteres */
-  word-wrap: break-word; /* Permite quebrar palavras se necessário */
+  width: 50ch;
+  word-wrap: break-word;
   overflow-wrap: break-word;
-  white-space: normal; /* Garante que o texto pode quebrar */
+  white-space: normal;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .login-button {
     transition: linear;
   }
-}
+} */
