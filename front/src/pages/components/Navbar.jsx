@@ -1,8 +1,22 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import '/src/pages/components/styles/navbar.css';
 
 function Navbar() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    navigate('/');
+  };
+  
   return (
     <nav className="navbar">
       <div className="logo">Spendwise</div>
@@ -11,7 +25,10 @@ function Navbar() {
         <a href="/dashboard" className='nav-items'>Dashboard</a>
         <a href="#" className='nav-items'>Sobre</a>
         <a href="/register" className='nav-items'>Cadastro</a>
-        <Link className="login-button" to="/login">Login</Link>
+        {isLoggedIn ? (
+          <button className="login-button" onClick={handleLogout}>Logout</button>
+        ) : (
+          <Link className="login-button" to="/login">Login</Link> )}
       </div>
     </nav>
   );
