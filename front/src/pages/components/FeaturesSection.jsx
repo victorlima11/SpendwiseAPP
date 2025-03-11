@@ -8,7 +8,7 @@ import '/src/pages/components/styles/features.css';
 function FeaturesSection() {
     return (
         <div className="features-container">
-            <div className="feature-main-text">
+            <div className="feature-main-text" id='features'>
                 <div className="features-title">
                     <h1 className="feature-h1">Features</h1>
                     <p>Esses são os serviços disponíveis por nosso software.</p>

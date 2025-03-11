@@ -23,7 +23,7 @@ function Navbar() {
       <div className="menu">
         <a href="#" className='nav-items'>Conta</a>
         <a href="/dashboard" className='nav-items'>Dashboard</a>
-        <a href="#" className='nav-items'>Sobre</a>
+        <a href="#features" className='nav-items'>Sobre</a>
         <a href="/register" className='nav-items'>Cadastro</a>
         {isLoggedIn ? (
           <button className="login-button" onClick={handleLogout}>Logout</button>
