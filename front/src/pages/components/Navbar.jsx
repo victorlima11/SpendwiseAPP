@@ -14,7 +14,7 @@ function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
-    navigate('/');
+    window.location.reload();
   };
   
   return (
@@ -26,7 +26,7 @@ function Navbar() {
         <a href="#features" className='nav-items'>Sobre</a>
         <a href="/register" className='nav-items'>Cadastro</a>
         {isLoggedIn ? (
-          <button className="login-button" onClick={handleLogout}>Logout</button>
+          <Link className="login-button" to="/" onClick={handleLogout}>Sair</Link>
         ) : (
           <Link className="login-button" to="/login">Login</Link> )}
       </div>

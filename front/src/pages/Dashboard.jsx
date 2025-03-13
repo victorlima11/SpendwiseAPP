@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Line } from 'react-chartjs-2';
 import { Filler } from 'chart.js';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import Sidebar from './components/SideBar';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
@@ -50,96 +51,17 @@ function Dashboard() {
     };
 
     fetchData();
-  }, [navigate]); // Adiciona `navigate` como dependência para garantir que a navegação seja verificada corretamente
-
-  // Dados para gráfico de Despesas
-  const despesaData = {
-    labels: despesas.map(despesa => despesa.date),
-    datasets: [{
-      label: 'Despesas',
-      data: despesas.map(despesa => despesa.amount),
-      borderColor: 'rgba(255, 99, 132, 1)',
-      backgroundColor: 'rgba(255, 99, 132, 0.2)',
-      fill: true,
-    }],
-  };
-
-  // Dados para gráfico de Rendimentos
-  const rendimentoData = {
-    labels: rendimentos.map(rendimento => rendimento.date),
-    datasets: [{
-      label: 'Rendimentos',
-      data: rendimentos.map(rendimento => rendimento.amount),
-      borderColor: 'rgba(75, 192, 192, 1)',
-      backgroundColor: 'rgba(75, 192, 192, 0.2)',
-      fill: true,
-    }],
-  };
+  }, [navigate]);
 
   return (
-    <div className="dashboard-container">
-      {/* Navbar */}
-      <nav className="navbar">
-        <div className="logo">Spendwise</div>
-        <div className="menu">
-          <Link to="/">Home</Link>
-          <Link to="/dashboard">Dashboard</Link>
-          <Link to="/settings">Configurações</Link>
-          <Link to="/logout" className="logout-button">Sair</Link>
-        </div>
-      </nav>
-
-      {/* Dashboard Content */}
-      <div className="dashboard-content">
-        <h1>Bem-vindo ao seu Painel</h1>
-        <p>Acompanhe seus gastos e controle suas finanças de forma simples e eficiente.</p>
-
-        <div className="cards-container">
-          <div className="card">
-            <h3>Saldo Atual</h3>
-            <p>R$ {saldo.toFixed(2)}</p>
-          </div>
-
-          <div className="card">
-            <h3>Despesas Mensais</h3>
-            <p>R$ {despesas.reduce((acc, despesa) => acc + despesa.amount, 0).toFixed(2)}</p>
-          </div>
-
-          <div className="card">
-            <h3>Meta de Economia</h3>
-            <p>R$ 10.000,00</p>
-          </div>
-        </div>
-
-        {/* Loading indicator */}
-        {loading ? (
-          <p>Carregando...</p>
-        ) : (
-          <div className="charts-container">
-            <div className="chart-card">
-              <h3>Despesas ao Longo do Tempo</h3>
-              <Line data={despesaData} options={{ responsive: true }} />
-            </div>
-
-            <div className="chart-card">
-              <h3>Rendimentos ao Longo do Tempo</h3>
-              <Line data={rendimentoData} options={{ responsive: true }} />
-            </div>
-          </div>
-        )}
-
-        <div className="buttons">
-          <button className="button-add">
-            <Link to="/transactions">Histórico de Transações</Link>
-          </button>
-          <button className="button-add">
-            <Link to="/addTransaction">Adicionar Transação</Link>
-          </button>
-          <button className="button-report">Gerar Relatório</button>
-        </div>
+    <div style={{ display: "flex" }}>
+      <Sidebar />
+      <div style={{ flex: 1, padding: "20px", color: "white", background: "#181818" }}>
+        <h1>Dashboard</h1>
+        <p>Bem-vindo ao painel!</p>
       </div>
     </div>
   );
-}
+};
 
 export default Dashboard;

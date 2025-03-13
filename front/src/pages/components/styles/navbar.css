@@ -39,7 +39,7 @@
   color: gray;
 }
 
-.login-button {
+.login-button, .login-button button{
   font-family: "Ubuntu", sans-serif;
   cursor: pointer;
   padding: 12px 17px;
