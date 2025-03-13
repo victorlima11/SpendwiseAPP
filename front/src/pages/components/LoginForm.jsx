@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -21,7 +22,8 @@ const LoginForm = () => {
         throw new Error("Nenhum access_token recebido na resposta");
       }
     } catch (error) {
-      console.error("Erro no login:", error.response ? error.response.data : error.message);
+      console.error("Erro no login:", error.response?.data || error.message);
+      setError(error.response?.data?.message || "Erro ao fazer login. Verifique suas credenciais.");
     }
   };
 
@@ -31,6 +33,7 @@ const LoginForm = () => {
         <div className="logo-form">
           <h1>Spendwise.</h1>
         </div>
+        {error && <p className="error-message">{error}</p>}
         <h2>Login</h2>
         <form className="login-form" onSubmit={handleLogin}>
           <input
