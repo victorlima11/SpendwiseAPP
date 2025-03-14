@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './dashboard.css';
 import Sidebar from './components/SideBar';
 import DashboardMainChart from './components/DashboardMainChart';
+import RadarChartComponent from './components/RadarChartComponent';
 
 
 function Dashboard() {
@@ -25,6 +26,7 @@ function Dashboard() {
         <h1>Dashboard</h1>
         <p>Bem-vindo ao painel!</p>
         <DashboardMainChart />
+        <RadarChartComponent />
       </div>
     </div>
   );

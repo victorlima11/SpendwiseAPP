@@ -1,0 +1,62 @@
+.chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #1e1e2f;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  .chart-title {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .filter-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .filter-buttons button {
+    background: #282a36;
+    color: #fff;
+    border: 1px solid #44475a;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .filter-buttons button:hover {
+    background: #44475a;
+  }
+  
+  .filter-buttons button.active {
+    background: #50fa7b;
+    color: #1e1e2f;
+  }
+  
+  .chart-wrapper {
+    width: 100%;
+    max-width: 500px;
+    height: 400px;
+  }
+  
+  .recharts-polar-grid {
+    stroke: #44475a !important;
+  }
+  
+  .recharts-radar {
+    stroke-width: 2 !important;
+    opacity: 0.9 !important;
+  }
+  

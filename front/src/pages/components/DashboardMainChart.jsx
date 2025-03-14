@@ -1,106 +1,86 @@
 import { useEffect, useState } from "react";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import './styles/DashboardMainChart.css'; // Importe o arquivo CSS para estilizar os elementos
+import './styles/DashboardMainChart.css';
 
 const DashboardMainChart = () => {
   const [chartData, setChartData] = useState([]);
-  const [month, setMonth] = useState(new Date().getMonth() + 1); // Mês atual
-  const [year, setYear] = useState(new Date().getFullYear()); // Ano atual
-  const [loading, setLoading] = useState(true); // Para exibir o carregando
+  const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token"); // Obtém o token JWT do localStorage ou onde você armazenar o token
-
+    const token = localStorage.getItem("token");
     if (!token) {
-      // Se não houver token, redireciona para a página de login
       navigate("/login");
-      return; // Evita continuar a execução do código
+      return;
     }
 
     const fetchData = async () => {
       setLoading(true);
-
       try {
-        // Enviar mês e ano como parâmetros para filtrar a consulta
-        const params = { month, year };
-
-        // Realiza as requisições para despesas e rendimentos, filtrando pelo mês e ano
         const [despesasRes, rendimentosRes] = await Promise.all([
           axios.get("http://localhost:8000/users/despesas/", {
             headers: { Authorization: `Bearer ${token}` },
-            params, // Envia mês e ano como query params
           }),
           axios.get("http://localhost:8000/users/rendimentos/", {
             headers: { Authorization: `Bearer ${token}` },
-            params, // Envia mês e ano como query params
           }),
         ]);
 
-        // Processando as despesas para incluir o valor e a data
-        const despesas = despesasRes.data.map((d) => {
-          const [year, month] = d.date.split("-"); // Pegando o ano e o mês da data
-          return {
-            date: `${year}-${month}`, // Formato 'YYYY-MM' para facilitar a comparação
-            value: d.amount,
-            type: "despesa",
-          };
-        });
+        // Filtrar os dados corretamente
+        const despesas = despesasRes.data
+          .filter((d) => {
+            const [dataAno, dataMes] = d.date.split("-").map(Number);
+            return dataAno === year && dataMes === month;
+          })
+          .map((d) => ({
+            date: d.date.split("-")[2], // Pegando apenas o dia
+            despesa: d.amount,
+            rendimento: 0,
+          }));
 
-        // Processando os rendimentos para incluir o valor e a data
-        const rendimentos = rendimentosRes.data.map((r) => {
-          const [year, month] = r.date.split("-"); // Pegando o ano e o mês da data
-          return {
-            date: `${year}-${month}`, // Formato 'YYYY-MM' para facilitar a comparação
-            value: r.amount,
-            type: "rendimento",
-          };
-        });
+        const rendimentos = rendimentosRes.data
+          .filter((r) => {
+            const [dataAno, dataMes] = r.date.split("-").map(Number);
+            return dataAno === year && dataMes === month;
+          })
+          .map((r) => ({
+            date: r.date.split("-")[2], // Pegando apenas o dia
+            despesa: 0,
+            rendimento: r.amount,
+          }));
 
-        // Mesclando despesas e rendimentos
-        const mergedData = [...despesas, ...rendimentos];
-
-        // Filtrando apenas os dados do mês e ano selecionados
-        const filteredData = mergedData.filter((data) => {
-          const [dataYear, dataMonth] = data.date.split("-"); // Separando o ano e o mês
-          return dataYear === String(year) && dataMonth === String(month).padStart(2, "0");
-        });
-
-        // Ordenando os dados pela data
-        filteredData.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-        // Agrupando as despesas e rendimentos por data
-        const groupedData = filteredData.reduce((acc, curr) => {
+        // Mesclar despesas e rendimentos no mesmo array
+        const mergedData = [...despesas, ...rendimentos].reduce((acc, curr) => {
           const existing = acc.find((item) => item.date === curr.date);
           if (existing) {
-            if (curr.type === "despesa") existing.despesa += curr.value;
-            if (curr.type === "rendimento") existing.rendimento += curr.value;
+            existing.despesa += curr.despesa;
+            existing.rendimento += curr.rendimento;
           } else {
-            acc.push({
-              date: curr.date,
-              despesa: curr.type === "despesa" ? curr.value : 0,
-              rendimento: curr.type === "rendimento" ? curr.value : 0,
-            });
+            acc.push(curr);
           }
           return acc;
         }, []);
 
-        // Garantir que o gráfico comece do zero
-        setChartData(groupedData);
-        setLoading(false);
+        // Ordenando por dia do mês
+        mergedData.sort((a, b) => Number(a.date) - Number(b.date));
+
+        setChartData(mergedData);
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
-        setLoading(false);
       }
+
+      setLoading(false);
     };
 
     fetchData();
   }, [month, year, navigate]);
 
   return (
-    <div>
+    <div className="chart-container">
       <div className="filters">
         <select value={month} onChange={(e) => setMonth(Number(e.target.value))}>
           {Array.from({ length: 12 }, (_, i) => (
@@ -125,28 +105,28 @@ const DashboardMainChart = () => {
         <div className="loading">Carregando...</div>
       ) : (
         <ResponsiveContainer width="100%" height={300}>
-          <AreaChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
-            <YAxis />
-            <Tooltip />
-            <Area
+          <LineChart data={chartData}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+            <XAxis dataKey="date" tick={{ fill: "#ddd" }} />
+            <YAxis domain={[0, "auto"]} tick={{ fill: "#ddd" }} />
+            <Tooltip contentStyle={{ backgroundColor: "#222", borderRadius: "5px", color: "#fff" }} />
+            <Legend verticalAlign="top" align="right" wrapperStyle={{ color: "#ddd" }} />
+            <Line
               type="monotone"
               dataKey="despesa"
-              stroke="#FF0000"
-              fill="#FF8888"
-              name="Despesas"
-              stackId="1"
-            />
-            <Area
+              stroke="#ff4d4d"
+              strokeWidth={3}
+              dot={{ r: 6, fill: "#ff4d4d", strokeWidth: 2, stroke: "#fff" }}
+              activeDot={{ r: 8, fill: "#ffcccc", strokeWidth: 2, stroke: "#ff4d4d" }} />
+            <Line
               type="monotone"
               dataKey="rendimento"
-              stroke="#008000"
-              fill="#88FF88"
-              name="Rendimentos"
-              stackId="1"
+              stroke="#4dff4d"
+              strokeWidth={3}
+              dot={{ r: 6, fill: "#4dff4d", strokeWidth: 2, stroke: "#fff" }}
+              activeDot={{ r: 8, fill: "#ccffcc", strokeWidth: 2, stroke: "#4dff4d" }}
             />
-          </AreaChart>
+          </LineChart>
         </ResponsiveContainer>
       )}
     </div>
