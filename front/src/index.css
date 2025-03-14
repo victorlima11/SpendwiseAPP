@@ -8,4 +8,5 @@ body, html {
   height: 100%;
   overflow-x: hidden;  /* Evita rolagem horizontal */
   overflow-y: auto;    /* Permite rolagem vertical */
+  box-sizing: border-box;
 }
