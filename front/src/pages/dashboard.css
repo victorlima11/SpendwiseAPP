@@ -1,13 +1,25 @@
-.dashboard-container{
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.main{
+  display: flex;
+  height: 100%;
+}
+
+.dashboard-container {
   color: #fff;
-  padding: 20px 70px;
+  padding: 20px 70px 0 70px; /* 20px no topo, 70px nas laterais e 0px no fundo */
   background-color: #0B0B0B;
   width: 100%;
 }
 
+
 .dashboard-main{
   display: flex;
-  gap: 20px;
+  gap: 2vh;
 }
 
 .dashboard-bot{

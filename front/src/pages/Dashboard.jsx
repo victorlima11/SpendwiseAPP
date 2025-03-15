@@ -23,7 +23,7 @@ function Dashboard() {
   }, [navigate]);
 
   return (
-    <div style={{ display: "flex" }}>
+    <div className='main'>
       <Sidebar />
       <div className='dashboard-container'>
         <h1>Dashboard</h1>
@@ -32,8 +32,6 @@ function Dashboard() {
         <div className='dashboard-main'>
         <DashboardMainChart />
         <ResumoMes />
-        </div>
-        <div className='dashboard-bot'>
         </div>
       </div>
     </div>

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { CreditCard, TrendingDown, TrendingUp, Percent } from "lucide-react";
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, Tooltip, ResponsiveContainer } from "recharts";
 import "./styles/dashboardCards.css";
-import RadarChartComponent from "./RadarChartComponent";
+
+const categories = ["Alimentação", "Saúde", "Transporte", "Moradia", "Educação", "Lazer", "Outros"];
 
 const DashboardCards = () => {
   const [saldo, setSaldo] = useState(null);
@@ -10,6 +12,9 @@ const DashboardCards = () => {
   const [ultimoInvestimento, setUltimoInvestimento] = useState(null);
   const [lucroPercentual, setLucroPercentual] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [chartData, setChartData] = useState([]);
+  const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [year, setYear] = useState(new Date().getFullYear());
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -41,7 +46,6 @@ const DashboardCards = () => {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);
-s
         const ultimaDespesa = despesasRes.data
           .sort((a, b) => new Date(b.date) - new Date(a.date))[0];
 
@@ -60,6 +64,21 @@ s
         } else {
           setLucroPercentual(null);
         }
+
+        // Prepara os dados para o gráfico
+        const data = categories.map((category) => {
+          const total = despesasRes.data
+            .filter((item) => {
+              const [dataAno, dataMes] = item.date.split("-").map(Number);
+              return dataAno === year && dataMes === month;
+            })
+            .filter((item) => item.category === category || (category === "Outros" && !categories.includes(item.category)))
+            .reduce((sum, item) => sum + item.amount, 0);
+
+          return { category, value: total };
+        });
+
+        setChartData(data);
       } catch (error) {
         console.error("Erro ao buscar últimas transações:", error);
       } finally {
@@ -69,7 +88,7 @@ s
 
     fetchSaldo();
     fetchUltimosDados();
-  }, []);
+  }, [month, year]);
 
   return (
     <div className="cards-container">
@@ -113,7 +132,23 @@ s
             : "Sem dados suficientes"}
         </p>
       </div>
-      <RadarChartComponent />
+      <div className="card radar-card"> {/* Card para o gráfico */}
+        <h3 className="card-title">Gráfico de Gastos</h3>
+        <div className="radar-card-content">
+          {loading ? (
+            <div className="loading">Carregando gráfico...</div>
+          ) : (
+            <ResponsiveContainer width="100%" height={150}>
+              <RadarChart data={chartData} outerRadius={50}>
+                <PolarGrid stroke="#ddd" />
+                <PolarAngleAxis dataKey="category" tick={{ fill: "#333", fontSize: 10 }} />
+                <Tooltip contentStyle={{ backgroundColor: "#222", borderRadius: "5px", color: "#fff" }} />
+                <Radar name="Gastos" dataKey="value" stroke="#FF5555" fill="#FF8888" fillOpacity={0.6} />
+              </RadarChart>
+            </ResponsiveContainer>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
