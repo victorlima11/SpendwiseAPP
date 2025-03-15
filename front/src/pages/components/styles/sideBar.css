@@ -6,7 +6,7 @@
   color: white;
   display: flex;
   flex-direction: column;
-  padding: 0px 20px 0 20px;
+  padding: 0 20px;
   transition: width 0.3s ease-in-out;
   position: relative;
   justify-content: flex-start;
@@ -14,7 +14,7 @@
 
 .sidebar.collapsed {
   width: 70px;
-  padding: 0px 10px 0px 10px;
+  padding: 0 10px;
 }
 
 .toggle-btn {
@@ -75,11 +75,7 @@
   }
 
   .toggle-btn {
-    display: block; /* Exibe o botão para alternar a sidebar */
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 1000;
+    display: none; /* Esconde o botão para alternar a sidebar em telas menores */
   }
 
   .menu-sidebar {
@@ -105,5 +101,18 @@
 @media (max-width: 480px) {
   .sidebar {
     width: 60px; /* Sidebar ainda mais estreita em telas muito pequenas */
+  }
+
+  .menu-sidebar {
+    flex-direction: column; /* Mantenha os itens na coluna para telas muito pequenas */
+  }
+
+  .menu-items{
+    margin-top: auto;
+  }
+
+  .sidebar-item {
+    justify-content: center; /* Centraliza os ícones */
+    padding: 8px;
   }
 }

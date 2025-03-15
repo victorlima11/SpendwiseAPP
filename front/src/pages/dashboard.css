@@ -10,6 +10,8 @@ body, html {
 }
 
 .dashboard-container {
+  justify-content: center;
+  align-items: center;
   color: #fff;
   padding: 20px 70px 0 70px; /* 20px no topo, 70px nas laterais e 0px no fundo */
   background-color: #0B0B0B;
