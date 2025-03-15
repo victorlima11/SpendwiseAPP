@@ -198,3 +198,98 @@ def delete_despesa(despesa_id: int, db: Session = Depends(get_db), token: str = 
     db.commit()
 
     return {"detail": "Despesa excluída com sucesso"}
+
+@router.post("/assinaturas/", response_model=schemas.Assinatura_Response)
+def add_assinatura(assinatura: schemas.Assinatura_Create, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    # Obtemos o usuário a partir do token
+    db_user = get_user_from_token(db, token)
+    
+    # Criamos a nova assinatura associando ao usuário
+    new_assinatura = models.Assinatura(
+        user_id=db_user.id,
+        valor=assinatura.valor,
+        tipo=assinatura.tipo,
+        data_inicio=assinatura.data_inicio,
+        data_renovacao=assinatura.data_renovacao,
+        status=assinatura.status
+    )
+    
+    db.add(new_assinatura)
+    db.commit()
+    db.refresh(new_assinatura)
+
+    return new_assinatura
+
+@router.get("/assinaturas/", response_model=list[schemas.Assinatura_Response])
+def get_assinaturas(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    # Obtemos o usuário a partir do token
+    db_user = get_user_from_token(db, token)
+    
+    # Buscamos as assinaturas do usuário no banco de dados
+    assinaturas = db.query(models.Assinatura).filter(models.Assinatura.user_id == db_user.id).all()
+    
+    return assinaturas
+
+@router.get("/assinaturas/{assinatura_id}", response_model=schemas.Assinatura_Response)
+def get_assinatura(assinatura_id: int, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    # Obtemos o usuário a partir do token
+    db_user = get_user_from_token(db, token)
+    
+    # Buscamos a assinatura do usuário
+    assinatura = db.query(models.Assinatura).filter(models.Assinatura.id == assinatura_id, models.Assinatura.user_id == db_user.id).first()
+
+    if not assinatura:
+        raise HTTPException(status_code=404, detail="Assinatura não encontrada")
+    
+    return assinatura
+
+@router.put("/assinaturas/{assinatura_id}/", response_model=schemas.Assinatura_Response)
+def edit_assinatura(assinatura_id: int, assinatura: schemas.Assinatura_Update, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    # Obtemos o usuário a partir do token
+    db_user = get_user_from_token(db, token)
+    
+    # Buscamos a assinatura do usuário
+    existing_assinatura = db.query(models.Assinatura).filter(models.Assinatura.id == assinatura_id, models.Assinatura.user_id == db_user.id).first()
+
+    if not existing_assinatura:
+        raise HTTPException(status_code=404, detail="Assinatura não encontrada")
+
+    # Atualizamos a assinatura
+    if assinatura.status:
+        existing_assinatura.status = assinatura.status
+    if assinatura.tipo:
+        existing_assinatura.tipo = assinatura.tipo
+    if assinatura.valor:
+        existing_assinatura.valor = assinatura.valor
+    if assinatura.data_renovacao:
+        existing_assinatura.data_renovacao = assinatura.data_renovacao
+
+    db.commit()
+    db.refresh(existing_assinatura)
+
+    return existing_assinatura
+
+@router.delete("/assinaturas/{assinatura_id}/")
+def delete_assinatura(assinatura_id: int, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    # Obtemos o usuário a partir do token
+    db_user = get_user_from_token(db, token)
+    
+    # Buscamos a assinatura do usuário
+    existing_assinatura = db.query(models.Assinatura).filter(models.Assinatura.id == assinatura_id, models.Assinatura.user_id == db_user.id).first()
+
+    if not existing_assinatura:
+        raise HTTPException(status_code=404, detail="Assinatura não encontrada")
+
+    db.delete(existing_assinatura)
+    db.commit()
+
+    return {"detail": "Assinatura excluída com sucesso"}
+
+@router.get("/me/assinaturas/count", response_model=int)
+def contar_assinaturas(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    # Obtemos o usuário a partir do token
+    db_user = get_user_from_token(db, token)
+    
+    num_assinaturas = db.query(models.Assinatura).filter(models.Assinatura.user_id == db_user.id).count()
+    
+    return num_assinaturas

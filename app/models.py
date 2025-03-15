@@ -15,7 +15,20 @@ class User(Base):
     
     despesas = relationship("Despesa", back_populates="user")
     rendimentos = relationship("Rendimento", back_populates="user")
+    assinaturas = relationship("Assinatura", back_populates="usuario")
 
+class Assinatura(Base):
+    __tablename__ = "assinaturas"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    valor = Column(Float, nullable=False)
+    status = Column(String, default="ativa")
+    data_inicio = Column(Date, nullable=False) 
+    data_renovacao = Column(Date, nullable=False)
+    tipo = Column(String, nullable=False)
+    
+    usuario = relationship("User", back_populates="assinaturas")
 
 class Despesa(Base):
     __tablename__ = "despesas"
