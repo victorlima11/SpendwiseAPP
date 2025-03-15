@@ -3,6 +3,7 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, Date
 from sqlalchemy.orm import relationship
 from database import Base
+from datetime import date, timedelta
 
 
 class User(Base):
@@ -29,6 +30,19 @@ class Assinatura(Base):
     tipo = Column(String, nullable=False)
     
     usuario = relationship("User", back_populates="assinaturas")
+
+    def criar_nova_despesa(self):
+        nova_despesa = Despesa(
+            user_id=self.user_id,
+            amount=self.valor,
+            category="Assinatura",
+            description="Cobrança de assinatura mensal",
+            date=self.data_renovacao
+        )
+        return nova_despesa
+    
+    def atualizar_renovacao(self):
+        self.data_renovacao += timedelta(days=30)
 
 class Despesa(Base):
     __tablename__ = "despesas"

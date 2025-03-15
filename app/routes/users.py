@@ -7,6 +7,7 @@ from utils.auth import create_access_token, verify_token
 from datetime import timedelta
 from utils.dependecies import get_current_user
 from fastapi.security import OAuth2PasswordBearer
+from datetime import datetime
 
 
 router = APIRouter(prefix="/users", tags=["users"])
@@ -50,7 +51,25 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
     return user
 
 @router.get("/me/")
-def get_profile(user: dict = Depends(get_current_user)):
+def get_profile(user: dict = Depends(get_current_user), db: Session = Depends(get_db)):
+    # Obter a assinatura do usuário
+    assinatura = db.query(models.Assinatura).filter(models.Assinatura.user_id == user['id']).first()
+
+    if assinatura:
+        # Se a data de renovação chegou ou passou
+        if assinatura.data_renovacao <= datetime.utcnow().date():
+            # Cria a despesa de cobrança de assinatura
+            nova_despesa = assinatura.criar_nova_despesa()
+            db.add(nova_despesa)
+            db.commit()
+
+            # Atualiza a data de renovação para o próximo mês
+            assinatura.atualizar_renovacao()
+            db.commit()
+
+            # Envia uma mensagem informando sobre a cobrança
+            return {"message": f"Assinatura renovada! Nova cobrança gerada. Próxima renovação em {assinatura.data_renovacao}"}
+    
     return {"message": f"Bem-vindo, {user['sub']}!"}
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
@@ -64,7 +83,6 @@ def get_user_from_token(db, token: str):
         if user is None:
             raise ValueError("Token inválido ou expirado")
 
-        # Verificar o banco de dados para encontrar o usuário usando o e-mail
         db_user = db.query(models.User).filter(models.User.email == user['sub']).first()
 
         if db_user is None:
@@ -293,3 +311,18 @@ def contar_assinaturas(db: Session = Depends(get_db), token: str = Depends(oauth
     num_assinaturas = db.query(models.Assinatura).filter(models.Assinatura.user_id == db_user.id).count()
     
     return num_assinaturas
+
+@router.get("/assinaturas/info/", response_model=dict)
+def get_assinaturas_info(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    db_user = get_user_from_token(db, token)
+    
+    # Buscar as assinaturas do usuário
+    assinaturas = db.query(models.Assinatura).filter(models.Assinatura.user_id == db_user.id, models.Assinatura.status == "ativa").all()
+    
+    # Calcular o total gasto com assinaturas
+    total_gasto = sum([assinatura.valor for assinatura in assinaturas])
+    
+    # Contar quantas assinaturas o usuário tem
+    total_assinaturas = len(assinaturas)
+    
+    return {"total_gasto": total_gasto, "total_assinaturas": total_assinaturas}

@@ -7,6 +7,7 @@ import RadarChartComponent from './components/RadarChartComponent';
 import DashboardCards from './components/DashboardCards';
 import DespesasCard from './components/DespesasCard';
 import RendimentosCard from './components/RendimentosCard';
+import AssinaturasCard from './components/AssinaturasCard';
 
 function Dashboard() {
   const navigate = useNavigate(); // Usado para redirecionar
@@ -29,6 +30,7 @@ function Dashboard() {
         <p>Bem-vindo ao painel!</p>
         <DashboardCards />
         <DashboardMainChart />
+        <AssinaturasCard />
         <DespesasCard />
         <RendimentosCard />
         <RadarChartComponent />
