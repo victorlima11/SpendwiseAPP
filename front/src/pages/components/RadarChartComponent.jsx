@@ -49,41 +49,21 @@ const RadarChartComponent = () => {
   }, [month, year]);
 
   return (
-    <div className="radar-chart-container">
-      <div className="radar-chart-items">
-      <div className="filters">
-        <select value={month} onChange={(e) => setMonth(Number(e.target.value))}>
-          {Array.from({ length: 12 }, (_, i) => (
-            <option key={i + 1} value={i + 1}>
-              {new Date(0, i).toLocaleString("pt-BR", { month: "long" })}
-            </option>
-          ))}
-        </select>
-        <select value={year} onChange={(e) => setYear(Number(e.target.value))}>
-          {Array.from({ length: 5 }, (_, i) => {
-            const y = new Date().getFullYear() - i;
-            return (
-              <option key={y} value={y}>
-                {y}
-              </option>
-            );
-          })}
-        </select>
+    <div className="radar-card">
+      <div className="radar-card-content">
+        {loading ? (
+          <div className="loading">Carregando...</div>
+        ) : (
+          <ResponsiveContainer width="100%" height={250}>
+            <RadarChart data={chartData} outerRadius={70}>
+              <PolarGrid stroke="#ddd" />
+              <PolarAngleAxis dataKey="category" tick={{ fill: "#333", fontSize: 12 }} />
+              <Tooltip contentStyle={{ backgroundColor: "#222", borderRadius: "5px", color: "#fff" }} />
+              <Radar name="Gastos" dataKey="value" stroke="#FF5555" fill="#FF8888" fillOpacity={0.6} />
+            </RadarChart>
+          </ResponsiveContainer>
+        )}
       </div>
-      </div>
-
-      {loading ? (
-        <div className="loading">Carregando...</div>
-      ) : (
-        <ResponsiveContainer width="100%" height={400}>
-          <RadarChart data={chartData} outerRadius={90}>
-            <PolarGrid stroke="#444" />
-            <PolarAngleAxis dataKey="category" tick={{ fill: "#ddd" }} />
-            <Tooltip contentStyle={{ backgroundColor: "#222", borderRadius: "5px", color: "#fff" }} />
-            <Radar name="Gastos" dataKey="value" stroke="#FF5555" fill="#FF8888" fillOpacity={0.6} />
-          </RadarChart>
-        </ResponsiveContainer>
-      )}
     </div>
   );
 };

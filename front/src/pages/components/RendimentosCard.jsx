@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { DollarSign } from "lucide-react";
-import './styles/dashboardCards.css';
+import './styles/rendimentoMes.css';
 
 const RendimentosCard = () => {
   const [rendimentosCount, setRendimentosCount] = useState(0);
@@ -39,11 +39,11 @@ const RendimentosCard = () => {
   }, []);
 
   return (
-    <div className="card">
-      <DollarSign size={32} className="card-icon" />
-      <h3 className="card-title">Número de Rendimentos no Mês</h3>
-      <p className="card-description">{rendimentosCount} Rendimentos</p>
-      <p className="card-total">Total: R$ {totalRendimentos.toFixed(2)}</p>
+    <div className="card-rendimento-mes">
+      <DollarSign size={32} className="card-icon-rendimento-mes" />
+      <h3 className="card-title-rendimento-mes">Número de Rendimentos no Mês</h3>
+      <p className="card-descriptio-rendimento-mes">{rendimentosCount} Rendimentos</p>
+      <p className="card-total-rendimento-mes">Total: R$ {totalRendimentos.toFixed(2)}</p>
     </div>
   );
 };

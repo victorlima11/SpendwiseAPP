@@ -1,6 +1,15 @@
 .dashboard-container{
   color: #fff;
-  padding: 20px;
+  padding: 20px 70px;
   background-color: #0B0B0B;
   width: 100%;
+}
+
+.dashboard-main{
+  display: flex;
+  gap: 20px;
+}
+
+.dashboard-bot{
+  margin-top: 2vh;
 }

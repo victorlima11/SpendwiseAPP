@@ -8,17 +8,17 @@ import DashboardCards from './components/DashboardCards';
 import DespesasCard from './components/DespesasCard';
 import RendimentosCard from './components/RendimentosCard';
 import AssinaturasCard from './components/AssinaturasCard';
+import ResumoMes from './components/ResumoMes';
 
 function Dashboard() {
-  const navigate = useNavigate(); // Usado para redirecionar
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('token'); // Obtém o token JWT do localStorage ou onde você armazenar o token
+    const token = localStorage.getItem('token');
 
     if (!token) {
-      // Se não houver token, redireciona para a página de login
       navigate('/login');
-      return; // Evita continuar a execução do código
+      return;
     }
   }, [navigate]);
 
@@ -29,11 +29,12 @@ function Dashboard() {
         <h1>Dashboard</h1>
         <p>Bem-vindo ao painel!</p>
         <DashboardCards />
+        <div className='dashboard-main'>
         <DashboardMainChart />
-        <AssinaturasCard />
-        <DespesasCard />
-        <RendimentosCard />
-        <RadarChartComponent />
+        <ResumoMes />
+        </div>
+        <div className='dashboard-bot'>
+        </div>
       </div>
     </div>
   );

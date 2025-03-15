@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './styles/cardAssinatura.css'
 
 const AssinaturasCard = () => {
   const [assinaturasInfo, setAssinaturasInfo] = useState({
@@ -26,7 +27,7 @@ const AssinaturasCard = () => {
   }, []);
 
   return (
-    <div className="card">
+    <div className="card-assinatura">
       <h3>Assinaturas</h3>
       <p>Total gasto com assinaturas: R${assinaturasInfo.total_gasto.toFixed(2)}</p>
       <p>Número de assinaturas ativas: {assinaturasInfo.total_assinaturas}</p>

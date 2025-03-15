@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { CreditCard, TrendingDown, TrendingUp, Percent } from "lucide-react";
 import "./styles/dashboardCards.css";
+import RadarChartComponent from "./RadarChartComponent";
 
 const DashboardCards = () => {
   const [saldo, setSaldo] = useState(null);
@@ -40,8 +41,7 @@ const DashboardCards = () => {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);
-
-        // Ordena e pega as últimas transações
+s
         const ultimaDespesa = despesasRes.data
           .sort((a, b) => new Date(b.date) - new Date(a.date))[0];
 
@@ -51,11 +51,9 @@ const DashboardCards = () => {
         setUltimaDespesa(ultimaDespesa);
         setUltimoInvestimento(ultimoInvestimento);
 
-        // Calcula o total de despesas e rendimentos
         const totalDespesas = despesasRes.data.reduce((acc, d) => acc + d.amount, 0);
         const totalRendimentos = rendimentosRes.data.reduce((acc, r) => acc + r.amount, 0);
 
-        // Calcula a porcentagem de lucro/prejuízo
         if (totalRendimentos > 0) {
           const lucro = ((totalRendimentos - totalDespesas) / totalRendimentos) * 100;
           setLucroPercentual(lucro);
@@ -75,7 +73,6 @@ const DashboardCards = () => {
 
   return (
     <div className="cards-container">
-      {/* Card Saldo */}
       <div className="card">
         <CreditCard size={32} className="card-icon" />
         <h3 className="card-title">Saldo</h3>
@@ -83,8 +80,6 @@ const DashboardCards = () => {
           {loading ? "Carregando..." : `R$ ${saldo?.toFixed(2)}`}
         </p>
       </div>
-
-      {/* Card Última Despesa */}
       <div className="card">
         <TrendingDown size={32} className="card-icon negative" />
         <h3 className="card-title">Última Despesa</h3>
@@ -96,8 +91,6 @@ const DashboardCards = () => {
             : "Nenhuma despesa"}
         </p>
       </div>
-
-      {/* Card Último Investimento */}
       <div className="card">
         <TrendingUp size={32} className="card-icon positive" />
         <h3 className="card-title">Último Investimento</h3>
@@ -109,8 +102,6 @@ const DashboardCards = () => {
             : "Nenhum investimento"}
         </p>
       </div>
-
-      {/* Card % de Lucro */}
       <div className="card">
         <Percent size={32} className="card-icon" />
         <h3 className="card-title">Lucro (%)</h3>
@@ -122,6 +113,7 @@ const DashboardCards = () => {
             : "Sem dados suficientes"}
         </p>
       </div>
+      <RadarChartComponent />
     </div>
   );
 };

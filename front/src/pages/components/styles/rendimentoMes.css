@@ -1,0 +1,31 @@
+.card-rendimento-mes {
+    background: #252525; /* Fundo levemente transparente */
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+    width: 180px; /* Mantém pequeno */
+    height: 140px; /* Aumentei um pouco para acomodar o ícone */
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Melhor distribuição dos elementos */
+    color: #fff; /* Texto branco */
+}
+
+.card-icon-rendimento-mes {
+    color: #8A2BE2; /* Ícone roxo */
+    font-size: 40px; /* Mantém o ícone maior */
+}
+
+.card-title-rendimento-mes {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.card-descriptio-rendimento-mes,
+.card-total-rendimento-mes {
+    font-size: 0.8rem;
+    margin-top: 2px;
+}

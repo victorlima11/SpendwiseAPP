@@ -1,0 +1,37 @@
+.card-resumo {
+    margin-top: 20px;
+    background: #191919;
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 400px;
+    height: 400px;
+    max-width: 100%;
+  }
+  
+  .top-row {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .bottom-row {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .card-resumo .card {
+    width: 100%;
+    max-width: 180px;
+  }
+  
+  .card-resumo .card-assinaturas {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+  

@@ -4,9 +4,8 @@
   padding: 20px;
   color: #fff;
   margin-top: 20px;
-  width: 100%;
-  max-width: 800px;
-  min-width: 250px;
+  width: auto;
+  min-width: 60%;
   height: auto;
   min-height: 300px;
   overflow: hidden;
@@ -76,4 +75,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.recharts-responsive-container{
+  display: flex;
+  justify-content: center;
+  align-items: ce;
 }
