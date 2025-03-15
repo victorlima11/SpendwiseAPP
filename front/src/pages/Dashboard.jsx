@@ -4,6 +4,7 @@ import './dashboard.css';
 import Sidebar from './components/SideBar';
 import DashboardMainChart from './components/DashboardMainChart';
 import RadarChartComponent from './components/RadarChartComponent';
+import DashboardCards from './components/DashboardCards';
 
 
 function Dashboard() {
@@ -22,9 +23,10 @@ function Dashboard() {
   return (
     <div style={{ display: "flex" }}>
       <Sidebar />
-      <div style={{ flex: 1, padding: "20px", color: "white", background: "#181818" }}>
+      <div className='dashboard-container'>
         <h1>Dashboard</h1>
         <p>Bem-vindo ao painel!</p>
+        <DashboardCards />
         <DashboardMainChart />
         <RadarChartComponent />
       </div>

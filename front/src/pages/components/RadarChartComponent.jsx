@@ -7,8 +7,8 @@ const categories = ["Alimentação", "Saúde", "Transporte", "Moradia", "Educaç
 
 const RadarChartComponent = () => {
   const [chartData, setChartData] = useState([]);
-  const [month, setMonth] = useState(new Date().getMonth() + 1); // Mês atual
-  const [year, setYear] = useState(new Date().getFullYear()); // Ano atual
+  const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [year, setYear] = useState(new Date().getFullYear());
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,12 +24,10 @@ const RadarChartComponent = () => {
           params,
         });
 
-        // Processando os dados para o gráfico
         const data = categories.map((category) => {
-          // Filtrando as despesas com base no mês e ano, usando split("-") para separar a data
           const total = response.data
             .filter((item) => {
-              const [dataAno, dataMes] = item.date.split("-").map(Number); // Pegando ano e mês da data
+              const [dataAno, dataMes] = item.date.split("-").map(Number);
               return dataAno === year && dataMes === month;
             })
             .filter((item) => item.category === category || (category === "Outros" && !categories.includes(item.category)))
@@ -52,8 +50,8 @@ const RadarChartComponent = () => {
 
   return (
     <div className="radar-chart-container">
+      <div className="radar-chart-items">
       <div className="filters">
-        {/* Filtro de mês */}
         <select value={month} onChange={(e) => setMonth(Number(e.target.value))}>
           {Array.from({ length: 12 }, (_, i) => (
             <option key={i + 1} value={i + 1}>
@@ -61,8 +59,6 @@ const RadarChartComponent = () => {
             </option>
           ))}
         </select>
-
-        {/* Filtro de ano */}
         <select value={year} onChange={(e) => setYear(Number(e.target.value))}>
           {Array.from({ length: 5 }, (_, i) => {
             const y = new Date().getFullYear() - i;
@@ -73,6 +69,7 @@ const RadarChartComponent = () => {
             );
           })}
         </select>
+      </div>
       </div>
 
       {loading ? (

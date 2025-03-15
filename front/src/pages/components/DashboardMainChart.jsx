@@ -81,53 +81,102 @@ const DashboardMainChart = () => {
 
   return (
     <div className="chart-container">
-      <div className="filters">
-        <select value={month} onChange={(e) => setMonth(Number(e.target.value))}>
-          {Array.from({ length: 12 }, (_, i) => (
-            <option key={i + 1} value={i + 1}>
-              {new Date(0, i).toLocaleString("pt-BR", { month: "long" })}
-            </option>
-          ))}
-        </select>
-        <select value={year} onChange={(e) => setYear(Number(e.target.value))}>
-          {Array.from({ length: 10 }, (_, i) => {
-            const y = new Date().getFullYear() - i;
-            return (
-              <option key={y} value={y}>
-                {y}
+      <div className="chart-items">
+        <div className="chart-text-item">
+          <h2 className="chart-text">Dados Mensais</h2>
+        </div>
+        <div className="filters">
+          <select value={month} onChange={(e) => setMonth(Number(e.target.value))}>
+            {Array.from({ length: 12 }, (_, i) => (
+              <option key={i + 1} value={i + 1}>
+                {new Date(0, i).toLocaleString("pt-BR", { month: "long" })}
               </option>
-            );
-          })}
-        </select>
+            ))}
+          </select>
+          <select value={year} onChange={(e) => setYear(Number(e.target.value))}>
+            {Array.from({ length: 10 }, (_, i) => {
+              const y = new Date().getFullYear() - i;
+              return (
+                <option key={y} value={y}>
+                  {y}
+                </option>
+              );
+            })}
+          </select>
+        </div>
       </div>
+
 
       {loading ? (
         <div className="loading">Carregando...</div>
       ) : (
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={chartData}>
+            {/* Definição dos gradientes neon */}
+            <defs>
+              <linearGradient id="despesaGradient" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#8A2BE2" stopOpacity={0.9} />  {/* Roxo vibrante */}
+                <stop offset="100%" stopColor="#DDA0DD" stopOpacity={0.7} />  {/* Lavanda neon */}
+              </linearGradient>
+              <linearGradient id="rendimentoGradient" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#00FFFF" stopOpacity={0.9} />  {/* Azul neon */}
+                <stop offset="100%" stopColor="#1E90FF" stopOpacity={0.7} />  {/* Azul elétrico */}
+              </linearGradient>
+            </defs>
+
+            {/* Grid e Eixos */}
             <CartesianGrid strokeDasharray="3 3" stroke="#444" />
             <XAxis dataKey="date" tick={{ fill: "#ddd" }} />
             <YAxis domain={[0, "auto"]} tick={{ fill: "#ddd" }} />
-            <Tooltip contentStyle={{ backgroundColor: "#222", borderRadius: "5px", color: "#fff" }} />
+            <Tooltip
+              contentStyle={{
+                background: "rgba(20, 20, 30, 0.6)", // Fundo semi-transparente
+                borderRadius: "12px",
+                padding: "12px 16px",
+                border: "none", // Remove a borda padrão do Tooltip
+                backdropFilter: "blur(12px)", // Glassmorphism
+                WebkitBackdropFilter: "blur(12px)", // Para compatibilidade no Safari
+              }}
+              itemStyle={{
+                color: "#fff", // Cor do texto
+                fontSize: "14px",
+                fontWeight: "500",
+                textTransform: "capitalize", // Deixa o texto com a primeira letra maiúscula
+              }}
+              labelStyle={{
+                color: "#fff", // Cor do título (sem neon)
+                fontWeight: "bold",
+              }}
+              cursor={{ stroke: "#8A2BE2", strokeWidth: 2 }} // Linha guia roxa
+              formatter={(value, name) => {
+                // Adiciona "R$" para valores de despesas e rendimentos
+                return name === "despesa" || name === "rendimento" ? `R$ ${value.toFixed(2)}` : value;
+              }}
+            />
+
+
             <Legend verticalAlign="top" align="right" wrapperStyle={{ color: "#ddd" }} />
+
+            {/* Linhas do gráfico */}
             <Line
               type="monotone"
               dataKey="despesa"
-              stroke="#ff4d4d"
+              stroke="url(#despesaGradient)"
               strokeWidth={3}
-              dot={{ r: 6, fill: "#ff4d4d", strokeWidth: 2, stroke: "#fff" }}
-              activeDot={{ r: 8, fill: "#ffcccc", strokeWidth: 2, stroke: "#ff4d4d" }} />
+              dot={{ r: 4, fill: "#8A2BE2", strokeWidth: 1, stroke: "#DDA0DD" }}  // Roxo neon
+              activeDot={{ r: 6, fill: "#DDA0DD", strokeWidth: 2, stroke: "#8A2BE2" }}
+            />
             <Line
               type="monotone"
               dataKey="rendimento"
-              stroke="#4dff4d"
+              stroke="url(#rendimentoGradient)"
               strokeWidth={3}
-              dot={{ r: 6, fill: "#4dff4d", strokeWidth: 2, stroke: "#fff" }}
-              activeDot={{ r: 8, fill: "#ccffcc", strokeWidth: 2, stroke: "#4dff4d" }}
+              dot={{ r: 4, fill: "#00FFFF", strokeWidth: 1, stroke: "#1E90FF" }}  // Azul neon
+              activeDot={{ r: 6, fill: "#1E90FF", strokeWidth: 2, stroke: "#00FFFF" }}
             />
           </LineChart>
         </ResponsiveContainer>
+
       )}
     </div>
   );
