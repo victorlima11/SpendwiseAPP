@@ -1,7 +1,7 @@
 /* Sidebar */
 .sidebar {
   width: 250px;
-  height: 100vh;
+  min-height: 100vh; /* Garante que a sidebar ocupe toda a altura da tela */
   background-color: #191919;
   color: white;
   display: flex;
@@ -31,7 +31,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-grow: 1;
+  flex-grow: 1; /* Garante que o conteúdo da sidebar ocupe o espaço disponível */
 }
 
 .menu-items {
@@ -69,50 +69,45 @@
   display: none;
 }
 
-@media (max-width: 768px) {
-  .sidebar {
-    width: 70px; /* Sidebar começa colapsada em telas menores */
-  }
-
-  .toggle-btn {
-    display: none; /* Esconde o botão para alternar a sidebar em telas menores */
-  }
-
-  .menu-sidebar {
-    flex-direction: row; /* Coloca os itens da sidebar na horizontal */
-    gap: 5px;
-    padding-top: 0;
-  }
-
-  .sidebar-item {
-    justify-content: center;
-    padding: 8px;
-  }
-
-  .sidebar-item span {
-    display: none; /* Esconde o texto nos itens em telas menores */
-  }
-
-  .sidebar.collapsed .sidebar-item span {
-    display: none;
-  }
-}
-
 @media (max-width: 480px) {
   .sidebar {
-    width: 60px; /* Sidebar ainda mais estreita em telas muito pequenas */
+    width: 60px; /* Sidebar mais estreita */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza os itens na sidebar */
+    padding: 10px 0;
+    min-height: 100vh; /* Garantir que a sidebar ocupe toda a altura da tela */
   }
 
   .menu-sidebar {
-    flex-direction: column; /* Mantenha os itens na coluna para telas muito pequenas */
+    display: flex;
+    flex-direction: column; /* Mantém os itens empilhados */
+    align-items: center; /* Garante alinhamento central */
+    gap: 10px; /* Espaço entre os itens */
+    width: 100%;
   }
 
-  .menu-items{
-    margin-top: auto;
+  .menu-items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centraliza tudo */
+    width: 100%;
+  }
+
+  .menu-logout {
+    margin-top: auto; /* Empurra para a parte inferior */
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
 
   .sidebar-item {
-    justify-content: center; /* Centraliza os ícones */
-    padding: 8px;
+    display: flex;
+    justify-content: center; /* Alinha os ícones horizontalmente */
+    align-items: center; /* Alinha verticalmente */
+    width: 50px; /* Mantém um tamanho uniforme */
+    height: 50px;
+    border-radius: 8px;
   }
 }

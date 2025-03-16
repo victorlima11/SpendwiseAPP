@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, Tooltip, ResponsiveContainer } from "recharts";
 import axios from "axios";
-import "./styles/radarChartComponent.css";
+import Loader from "./Loader";
 
 const categories = ["Alimentação", "Saúde", "Transporte", "Moradia", "Educação", "Lazer", "Outros"];
 
@@ -52,7 +52,7 @@ const RadarChartComponent = () => {
     <div className="radar-card">
       <div className="radar-card-content">
         {loading ? (
-          <div className="loading">Carregando...</div>
+            <Loader />
         ) : (
           <ResponsiveContainer width="100%" height={250}>
             <RadarChart data={chartData} outerRadius={70}>

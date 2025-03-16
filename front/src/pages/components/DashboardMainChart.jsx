@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Loader from "./Loader";
 import './styles/DashboardMainChart.css';
 
 const DashboardMainChart = () => {
@@ -108,8 +109,10 @@ const DashboardMainChart = () => {
 
 
       {loading ? (
-        <div className="loading">Carregando...</div>
-      ) : (
+    <div className="loader-main" style={{ height: '100%', width: '100%' }}>
+      <Loader />
+    </div>
+  ) : (
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={chartData}>
             {/* Definição dos gradientes neon */}

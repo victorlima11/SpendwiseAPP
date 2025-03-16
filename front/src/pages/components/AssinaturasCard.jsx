@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './styles/cardAssinatura.css'
+import './styles/cardAssinatura.css';
 
 const AssinaturasCard = () => {
   const [assinaturasInfo, setAssinaturasInfo] = useState({
-    total_gasto: 0,
+    total_gasto: 0, // Definindo valor padrão
     total_assinaturas: 0,
   });
+  const [totalAssinaturas, setTotalAssinaturas] = useState(0);
 
   useEffect(() => {
     const fetchAssinaturasInfo = async () => {
       try {
-        const token = localStorage.getItem("access_token"); // Ou a forma como você armazena o token
-        const response = await axios.get("http://localhost:8000/users/assinaturas/info/", {
+        const token = localStorage.getItem("token");
+        const response = await axios.get("http://localhost:8000/users/assinaturas/", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -23,14 +24,29 @@ const AssinaturasCard = () => {
       }
     };
 
+    const fetchAssinaturasCount = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get("http://localhost:8000/users/me/assinaturas/count", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setTotalAssinaturas(response.data.count);
+      } catch (error) {
+        console.error("Erro ao contar as assinaturas", error);
+      }
+    };
+
     fetchAssinaturasInfo();
+    fetchAssinaturasCount();
   }, []);
 
   return (
     <div className="card-assinatura">
       <h3>Assinaturas</h3>
-      <p>Total gasto com assinaturas: R${assinaturasInfo.total_gasto.toFixed(2)}</p>
-      <p>Número de assinaturas ativas: {assinaturasInfo.total_assinaturas}</p>
+      <p>Total gasto com assinaturas: R${assinaturasInfo.total_gasto ? assinaturasInfo.total_gasto.toFixed(2) : "0.00"}</p>
+      <p>Número de assinaturas ativas: {totalAssinaturas}</p>
     </div>
   );
 };

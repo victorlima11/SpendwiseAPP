@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { CreditCard, TrendingDown, TrendingUp, Percent } from "lucide-react";
+import Loader from "./Loader";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, Tooltip, ResponsiveContainer } from "recharts";
 import "./styles/dashboardCards.css";
 
@@ -135,15 +136,17 @@ const DashboardCards = () => {
       <div className="card radar-card"> {/* Card para o gráfico */}
         <h3 className="card-title">Gráfico de Gastos</h3>
         <div className="radar-card-content">
-          {loading ? (
-            <div className="loading">Carregando gráfico...</div>
-          ) : (
+        {loading ? (
+    <div className="loader-main" style={{ height: '100%', width: '100%' }}>
+      <Loader />
+    </div>
+  ) : (
             <ResponsiveContainer width="100%" height={150}>
               <RadarChart data={chartData} outerRadius={50}>
                 <PolarGrid stroke="#ddd" />
-                <PolarAngleAxis dataKey="category" tick={{ fill: "#333", fontSize: 10 }} />
+                <PolarAngleAxis dataKey="category" tick={{ fill: "#fff", fontSize: 10 }} />
                 <Tooltip contentStyle={{ backgroundColor: "#222", borderRadius: "5px", color: "#fff" }} />
-                <Radar name="Gastos" dataKey="value" stroke="#FF5555" fill="#FF8888" fillOpacity={0.6} />
+                <Radar name="Gastos" dataKey="value" stroke="#9b00ff" fill="#d900ff" fillOpacity={0.6} />
               </RadarChart>
             </ResponsiveContainer>
           )}

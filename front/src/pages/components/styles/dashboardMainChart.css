@@ -37,8 +37,9 @@
 }
 
 .filters select:hover {
-  background: linear-gradient(135deg, #ff4d4d, #ff9800);
+  background-color: #303030;
 }
+
 
 .filters select:focus {
   background: #282a36;
@@ -81,4 +82,10 @@
   display: flex;
   justify-content: center;
   align-items: ce;
+}
+
+@media (max-width: 480px) {
+  .chart-container{
+    display: none;
+  }
 }
