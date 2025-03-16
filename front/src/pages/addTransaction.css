@@ -1,53 +1,118 @@
-.add-transaction-container {
-    padding: 20px;
-    background-color: #f4f4f9;
-    border-radius: 8px;
-    max-width: 500px;
-    margin: 0 auto;
-  }
-  
-  /* h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  } */
-  
-  .input-group {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    font-weight: bold;
-  }
-  
-  input[type="number"],
-  input[type="text"],
-  input[type="date"] {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
-  
-  button.button-submit {
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  button.button-submit:hover {
-    background-color: #45a049;
-  }
-  
-  .error {
-    color: red;
-    font-size: 14px;
-    text-align: center;
-    margin-top: 10px;
-  }
-  
+/* Overlay do Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Container do Modal */
+.modal-container {
+  background: #1f1f1f;
+  padding: 40px;
+  border-radius: 15px;
+  width: 400px;
+  position: relative;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Fechar o Modal */
+.modal-close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Título do Modal */
+.modal-title {
+  text-align: center;
+  color: #fff;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.add-transaction-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-transaction-input-group {
+  margin-bottom: 20px;
+}
+
+.add-transaction-label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  color: #b0b0b0;
+}
+
+.add-transaction-input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  background: #2b2b2b;
+  border: 1px solid #444;
+  color: #dddddd;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.add-transaction-input:focus {
+  border-color: #00d1b2;
+  box-shadow: 0 0 8px rgba(0, 209, 178, 0.6);
+  outline: none;
+}
+
+.add-transaction-radio-group {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.add-transaction-radio-label {
+  color: #dddddd;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.add-transaction-radio-input {
+  margin-right: 8px;
+  accent-color: #00d1b2;
+}
+
+.add-transaction-submit-button {
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #00d1b2, #007bff);
+  color: #ffffff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.add-transaction-submit-button:hover {
+  background: linear-gradient(135deg, #007bff, #00d1b2);
+  transform: translateY(-2px);
+}
+
+.add-transaction-error {
+  text-align: center;
+  color: #ff4d4d;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
