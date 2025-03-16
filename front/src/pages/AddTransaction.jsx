@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import "./addTransaction.css"
 
-function AddTransactionModal({ showModal, closeModal }) {
+function AddTransaction() {
   const [tipo, setTipo] = useState('despesa');
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('');
@@ -39,98 +40,92 @@ function AddTransactionModal({ showModal, closeModal }) {
       setDate('');
       setError('');
       alert('Transação adicionada com sucesso!');
-      closeModal();
     } catch (error) {
       setError('Ocorreu um erro ao adicionar a transação. Tente novamente.');
     }
   };
 
   return (
-    showModal && (
-      <div className="modal-overlay">
-        <div className="modal-container">
-          <button className="modal-close-button" onClick={closeModal}>X</button>
-          <h2 className="modal-title">Adicionar Transação</h2>
-          <form onSubmit={handleSubmit} className="add-transaction-form">
-            <div className="add-transaction-input-group">
-              <label className="add-transaction-label">Tipo de Transação:</label>
-              <div className="add-transaction-radio-group">
-                <label className="add-transaction-radio-label">
-                  <input 
-                    type="radio" 
-                    name="tipo" 
-                    value="despesa" 
-                    checked={tipo === 'despesa'} 
-                    onChange={() => setTipo('despesa')} 
-                    className="add-transaction-radio-input"
-                  />
-                  Despesa
-                </label>
-                <label className="add-transaction-radio-label">
-                  <input 
-                    type="radio" 
-                    name="tipo" 
-                    value="rendimento" 
-                    checked={tipo === 'rendimento'} 
-                    onChange={() => setTipo('rendimento')} 
-                    className="add-transaction-radio-input"
-                  />
-                  Rendimento
-                </label>
-              </div>
-            </div>
-
-            <div className="add-transaction-input-group">
-              <label className="add-transaction-label">Montante:</label>
+    <div className="modal-container">
+      <h2 className="modal-title">Adicionar Transação</h2>
+      <form onSubmit={handleSubmit} className="modal-form">
+        <div className="modal-input-group">
+          <label className="modal-label">Tipo de Transação:</label>
+          <div className="modal-radio-group">
+            <label className="modal-radio-label">
               <input 
-                type="number" 
-                value={amount} 
-                onChange={(e) => setAmount(e.target.value)} 
-                placeholder="Valor da transação"
-                className="add-transaction-input"
+                type="radio" 
+                name="tipo" 
+                value="despesa" 
+                checked={tipo === 'despesa'} 
+                onChange={() => setTipo('despesa')} 
+                className="modal-radio-input"
               />
-            </div>
-
-            <div className="add-transaction-input-group">
-              <label className="add-transaction-label">Categoria:</label>
+              Despesa
+            </label>
+            <label className="modal-radio-label">
               <input 
-                type="text" 
-                value={category} 
-                onChange={(e) => setCategory(e.target.value)} 
-                placeholder="Ex: Alimentação, Salário"
-                className="add-transaction-input"
+                type="radio" 
+                name="tipo" 
+                value="rendimento" 
+                checked={tipo === 'rendimento'} 
+                onChange={() => setTipo('rendimento')} 
+                className="modal-radio-input"
               />
-            </div>
-
-            <div className="add-transaction-input-group">
-              <label className="add-transaction-label">Descrição (opcional):</label>
-              <input 
-                type="text" 
-                value={description} 
-                onChange={(e) => setDescription(e.target.value)} 
-                placeholder="Ex: Compra no supermercado"
-                className="add-transaction-input"
-              />
-            </div>
-
-            <div className="add-transaction-input-group">
-              <label className="add-transaction-label">Data:</label>
-              <input 
-                type="date" 
-                value={date} 
-                onChange={(e) => setDate(e.target.value)} 
-                className="add-transaction-input"
-              />
-            </div>
-
-            {error && <p className="add-transaction-error">{error}</p>}
-
-            <button type="submit" className="add-transaction-submit-button">Adicionar Transação</button>
-          </form>
+              Rendimento
+            </label>
+          </div>
         </div>
-      </div>
-    )
+
+        <div className="modal-input-group">
+          <label className="modal-label">Montante:</label>
+          <input 
+            type="number" 
+            value={amount} 
+            onChange={(e) => setAmount(e.target.value)} 
+            placeholder="Valor da transação"
+            className="modal-input"
+          />
+        </div>
+
+        <div className="modal-input-group">
+          <label className="modal-label">Categoria:</label>
+          <input 
+            type="text" 
+            value={category} 
+            onChange={(e) => setCategory(e.target.value)} 
+            placeholder="Ex: Alimentação, Salário"
+            className="modal-input"
+          />
+        </div>
+
+        <div className="modal-input-group">
+          <label className="modal-label">Descrição (opcional):</label>
+          <input 
+            type="text" 
+            value={description} 
+            onChange={(e) => setDescription(e.target.value)} 
+            placeholder="Ex: Compra no supermercado"
+            className="modal-input"
+          />
+        </div>
+
+        <div className="modal-input-group">
+          <label className="modal-label">Data:</label>
+          <input 
+            type="date" 
+            value={date} 
+            onChange={(e) => setDate(e.target.value)} 
+            className="modal-input"
+          />
+        </div>
+
+        {error && <p className="modal-error">{error}</p>}
+
+        <button type="submit" className="modal-submit-button">Adicionar Transação</button>
+      </form>
+    </div>
   );
 }
 
-export default AddTransactionModal;
+export default AddTransaction;

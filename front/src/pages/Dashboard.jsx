@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './dashboard.css';
+import './components/styles/dashboard.css';
 import Sidebar from './components/SideBar';
 import DashboardMainChart from './components/DashboardMainChart';
 import RadarChartComponent from './components/RadarChartComponent';
