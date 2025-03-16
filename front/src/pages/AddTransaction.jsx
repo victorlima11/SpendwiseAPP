@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './addTransactionModal.css';
 
 function AddTransactionModal({ showModal, closeModal }) {
   const [tipo, setTipo] = useState('despesa');
