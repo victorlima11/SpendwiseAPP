@@ -3,7 +3,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Loader from "./Loader";
-import './styles/DashboardMainChart.css';
+import './styles/dashboardMainChart.css';
 
 const DashboardMainChart = () => {
   const [chartData, setChartData] = useState([]);

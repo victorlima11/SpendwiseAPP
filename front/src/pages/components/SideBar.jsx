@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Home, User, LogOut, Menu, History, Settings, CirclePlus, FileText } from "lucide-react";
-import "./styles/Sidebar.css";
+import "./styles/sideBar.css";
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
 
