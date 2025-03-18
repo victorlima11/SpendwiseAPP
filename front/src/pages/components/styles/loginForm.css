@@ -15,7 +15,6 @@
     max-width: 350px;
     color: #fff;
     border: solid 1px #fff;
-    backdrop-filter: blur(10px);
   }
   
   .logo-form {

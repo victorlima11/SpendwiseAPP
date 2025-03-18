@@ -15,7 +15,7 @@ const Sidebar = () => {
           <SidebarItem to="/dashboard" icon={<Home size={24} />} text="Dashboard" collapsed={isCollapsed} />
           <SidebarItem to="/history" icon={<History size={24} />} text="Histórico" collapsed={isCollapsed} />
           <SidebarItem icon={<Settings size={24} />} text="Configurações" collapsed={isCollapsed} />
-          <SidebarItem to="/addTransaction" icon={<CirclePlus size={24} />} text="Adicionar" collapsed={isCollapsed} />
+          <SidebarItem to="/transaction/add" icon={<CirclePlus size={24} />} text="Adicionar" collapsed={isCollapsed} />
           <SidebarItem to="/record" icon={<FileText size={24} />} text="Relatório" collapsed={isCollapsed} />
           <SidebarItem to="/profile" icon={<User size={24} />} text="Perfil" collapsed={isCollapsed} />
         </div>

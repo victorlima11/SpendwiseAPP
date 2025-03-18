@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import "./addTransaction.css"
+import "./styles/addTransaction.css";
 
 function AddTransaction() {
   const [tipo, setTipo] = useState('despesa');
@@ -9,6 +9,11 @@ function AddTransaction() {
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
   const [error, setError] = useState('');
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true); // Animação ao abrir o modal
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,7 +51,7 @@ function AddTransaction() {
   };
 
   return (
-    <div className="modal-container">
+    <div className={`modal-container ${isVisible ? 'visible' : ''}`}>
       <h2 className="modal-title">Adicionar Transação</h2>
       <form onSubmit={handleSubmit} className="modal-form">
         <div className="modal-input-group">

@@ -110,4 +110,8 @@
     height: 50px;
     border-radius: 8px;
   }
+
+  .toggle-btn{
+    display: none;
+  }
 }
