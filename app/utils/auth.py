@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
 
-SECRET_KEY = "supersecreta"  # Troque por uma chave mais segura
+SECRET_KEY = "supersecreta"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_DAYS = 14
 

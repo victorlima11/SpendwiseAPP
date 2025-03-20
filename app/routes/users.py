@@ -34,7 +34,7 @@ def login(user: schemas.User_Login, db: Session = Depends(get_db)):
     if not db_user or not verify_password(user.password, db_user.password_hash):
         raise HTTPException(status_code=400, detail="Credenciais inválidas")
 
-    access_token = create_access_token(data={"sub": db_user.email}, expires_delta=timedelta(minutes=30))
+    access_token = create_access_token(data={"sub": db_user.email}, expires_delta=timedelta(days=1))
     return {"access_token": access_token, "token_type": "bearer"}
 
 @router.get("/", response_model=list[schemas.User_Response])
