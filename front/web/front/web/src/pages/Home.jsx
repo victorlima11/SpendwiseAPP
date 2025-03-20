@@ -2,18 +2,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './home.css';
+import logo from '/src/assets/spendwisr.png';
 
 function Home() {
   return (
     <div className='navbar'>
       <div className='logo-items'>
-        <h1 className='logo'>cyas</h1>
+        <Link to="/" style={{ textDecoration: 'none' }}>
+          <h1 className='logo'>Spendwise.</h1>
+        </Link>
       </div>
 
       <div className='nav-div'>
         <ul className='nav-ul'>
           <li className='nav-li'>
-            <Link to="/" className="nav-link">Conta</Link>
+            <Link to="/conta" className="nav-link">Conta</Link>
           </li>
           <li className='nav-li'>
             <Link to="/sobre" className="nav-link">Dashboard</Link>
