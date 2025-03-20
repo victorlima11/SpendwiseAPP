@@ -1,0 +1,31 @@
+.card-rendimento-mes {
+    background: #252525;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+    width: 180px;
+    height: 140px;
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+}
+
+.card-icon-rendimento-mes {
+    color: #8A2BE2;
+    font-size: 40px;
+}
+
+.card-title-rendimento-mes {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.card-descriptio-rendimento-mes,
+.card-total-rendimento-mes {
+    font-size: 0.8rem;
+    margin-top: 2px;
+}
