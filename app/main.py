@@ -1,10 +1,10 @@
 from fastapi import FastAPI
-from routes import users, hello
+from routes import users
 from database import engine, Base
 Base.metadata.create_all(bind=engine)
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI(title="API Simples com FastAPI")
+app = FastAPI(title="Spendwise API")
 
 app.add_middleware(
     CORSMiddleware,
@@ -15,4 +15,3 @@ app.add_middleware(
 )
 
 app.include_router(users.router)
-app.include_router(hello.router)
