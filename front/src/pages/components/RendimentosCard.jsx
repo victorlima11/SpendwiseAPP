@@ -13,7 +13,7 @@ const RendimentosCard = () => {
 
     const fetchRendimentos = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/users/rendimentos/", {
+        const response = await axios.get("https://spendwiseapp.onrender.com/users/rendimentos/", {
           headers: { Authorization: `Bearer ${token}` },
         });
         

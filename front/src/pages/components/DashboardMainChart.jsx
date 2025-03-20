@@ -23,10 +23,10 @@ const DashboardMainChart = () => {
       setLoading(true);
       try {
         const [despesasRes, rendimentosRes] = await Promise.all([
-          axios.get("http://localhost:8000/users/despesas/", {
+          axios.get("https://spendwiseapp.onrender.com/users/despesas/", {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get("http://localhost:8000/users/rendimentos/", {
+          axios.get("https://spendwiseapp.onrender.com/users/rendimentos/", {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);

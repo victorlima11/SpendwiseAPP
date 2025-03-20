@@ -13,7 +13,7 @@ const AssinaturasCard = () => {
     const fetchAssinaturasInfo = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:8000/users/assinaturas/", {
+        const response = await axios.get("https://spendwiseapp.onrender.com/users/assinaturas/", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -27,7 +27,7 @@ const AssinaturasCard = () => {
     const fetchAssinaturasCount = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:8000/users/me/assinaturas/count", {
+        const response = await axios.get("https://spendwiseapp.onrender.com/users/me/assinaturas/count", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
