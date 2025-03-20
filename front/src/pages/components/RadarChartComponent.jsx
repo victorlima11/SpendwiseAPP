@@ -19,7 +19,7 @@ const RadarChartComponent = () => {
       setLoading(true);
       try {
         const params = { month, year };
-        const response = await axios.get("http://localhost:8000/users/despesas/", {
+        const response = await axios.get("https://spendwiseapp.onrender.com/users/despesas/", {
           headers: { Authorization: `Bearer ${token}` },
           params,
         });

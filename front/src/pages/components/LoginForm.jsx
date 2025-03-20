@@ -13,7 +13,7 @@ const LoginForm = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/users/login/", { email, password });
+      const response = await axios.post("https://spendwiseapp.onrender.com/users/login/", { email, password });
       const { access_token } = response.data;
       if (access_token) {
         localStorage.setItem("token", access_token);

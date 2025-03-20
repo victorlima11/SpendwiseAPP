@@ -13,7 +13,7 @@ const DespesasCard = () => {
 
     const fetchDespesas = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/users/despesas/", {
+        const response = await axios.get("https://spendwiseapp.onrender.com/users/despesas/", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const currentMonth = new Date().getMonth() + 1;
