@@ -39,7 +39,7 @@ const RadarChartComponent = () => {
         setChartData(data);
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
-        setChartData(categories.map((category) => ({ category, value: 0 }))); // Se erro, retorna valores 0
+        setChartData(categories.map((category) => ({ category, value: 0 })));
       }
 
       setLoading(false);

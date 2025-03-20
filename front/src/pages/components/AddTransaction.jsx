@@ -12,7 +12,7 @@ function AddTransaction() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setIsVisible(true); // Animação ao abrir o modal
+    setIsVisible(true);
   }, []);
 
   const handleSubmit = async (e) => {
@@ -32,7 +32,7 @@ function AddTransaction() {
 
     try {
       const url = tipo === 'despesa' ? 'http://localhost:8000/users/despesas/' : 'http://localhost:8000/users/rendimentos/';
-      
+
       await axios.post(url, transactionData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -58,23 +58,23 @@ function AddTransaction() {
           <label className="modal-label">Tipo de Transação:</label>
           <div className="modal-radio-group">
             <label className="modal-radio-label">
-              <input 
-                type="radio" 
-                name="tipo" 
-                value="despesa" 
-                checked={tipo === 'despesa'} 
-                onChange={() => setTipo('despesa')} 
+              <input
+                type="radio"
+                name="tipo"
+                value="despesa"
+                checked={tipo === 'despesa'}
+                onChange={() => setTipo('despesa')}
                 className="modal-radio-input"
               />
               Despesa
             </label>
             <label className="modal-radio-label">
-              <input 
-                type="radio" 
-                name="tipo" 
-                value="rendimento" 
-                checked={tipo === 'rendimento'} 
-                onChange={() => setTipo('rendimento')} 
+              <input
+                type="radio"
+                name="tipo"
+                value="rendimento"
+                checked={tipo === 'rendimento'}
+                onChange={() => setTipo('rendimento')}
                 className="modal-radio-input"
               />
               Rendimento
@@ -84,10 +84,10 @@ function AddTransaction() {
 
         <div className="modal-input-group">
           <label className="modal-label">Montante:</label>
-          <input 
-            type="number" 
-            value={amount} 
-            onChange={(e) => setAmount(e.target.value)} 
+          <input
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
             placeholder="Valor da transação"
             className="modal-input"
           />
@@ -95,21 +95,31 @@ function AddTransaction() {
 
         <div className="modal-input-group">
           <label className="modal-label">Categoria:</label>
-          <input 
-            type="text" 
-            value={category} 
-            onChange={(e) => setCategory(e.target.value)} 
+          <input
+            type="text"
+            list="categories"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
             placeholder="Ex: Alimentação, Salário"
             className="modal-input"
           />
+          <datalist id="categories">
+            <option value="Alimentação" />
+            <option value="Saúde" />
+            <option value="Transporte" />
+            <option value="Moradia" />
+            <option value="Educação" />
+            <option value="Lazer" />
+          </datalist>
         </div>
+
 
         <div className="modal-input-group">
           <label className="modal-label">Descrição (opcional):</label>
-          <input 
-            type="text" 
-            value={description} 
-            onChange={(e) => setDescription(e.target.value)} 
+          <input
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             placeholder="Ex: Compra no supermercado"
             className="modal-input"
           />
@@ -117,10 +127,10 @@ function AddTransaction() {
 
         <div className="modal-input-group">
           <label className="modal-label">Data:</label>
-          <input 
-            type="date" 
-            value={date} 
-            onChange={(e) => setDate(e.target.value)} 
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
             className="modal-input"
           />
         </div>

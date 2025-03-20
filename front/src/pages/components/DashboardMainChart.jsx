@@ -31,14 +31,13 @@ const DashboardMainChart = () => {
           }),
         ]);
 
-        // Filtrar os dados corretamente
         const despesas = despesasRes.data
           .filter((d) => {
             const [dataAno, dataMes] = d.date.split("-").map(Number);
             return dataAno === year && dataMes === month;
           })
           .map((d) => ({
-            date: d.date.split("-")[2], // Pegando apenas o dia
+            date: d.date.split("-")[2],
             despesa: d.amount,
             rendimento: 0,
           }));
@@ -49,12 +48,11 @@ const DashboardMainChart = () => {
             return dataAno === year && dataMes === month;
           })
           .map((r) => ({
-            date: r.date.split("-")[2], // Pegando apenas o dia
+            date: r.date.split("-")[2],
             despesa: 0,
             rendimento: r.amount,
           }));
 
-        // Mesclar despesas e rendimentos no mesmo array
         const mergedData = [...despesas, ...rendimentos].reduce((acc, curr) => {
           const existing = acc.find((item) => item.date === curr.date);
           if (existing) {
@@ -66,7 +64,6 @@ const DashboardMainChart = () => {
           return acc;
         }, []);
 
-        // Ordenando por dia do mês
         mergedData.sort((a, b) => Number(a.date) - Number(b.date));
 
         setChartData(mergedData);
@@ -115,58 +112,52 @@ const DashboardMainChart = () => {
   ) : (
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={chartData}>
-            {/* Definição dos gradientes neon */}
             <defs>
               <linearGradient id="despesaGradient" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#8A2BE2" stopOpacity={0.9} />  {/* Roxo vibrante */}
-                <stop offset="100%" stopColor="#DDA0DD" stopOpacity={0.7} />  {/* Lavanda neon */}
+                <stop offset="0%" stopColor="#8A2BE2" stopOpacity={0.9} />
+                <stop offset="100%" stopColor="#DDA0DD" stopOpacity={0.7} />
               </linearGradient>
               <linearGradient id="rendimentoGradient" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#00FFFF" stopOpacity={0.9} />  {/* Azul neon */}
-                <stop offset="100%" stopColor="#1E90FF" stopOpacity={0.7} />  {/* Azul elétrico */}
+                <stop offset="0%" stopColor="#00FFFF" stopOpacity={0.9} />
+                <stop offset="100%" stopColor="#1E90FF" stopOpacity={0.7} />
               </linearGradient>
             </defs>
-
-            {/* Grid e Eixos */}
             <CartesianGrid strokeDasharray="3 3" stroke="#444" />
             <XAxis dataKey="date" tick={{ fill: "#ddd" }} />
             <YAxis domain={[0, "auto"]} tick={{ fill: "#ddd" }} />
             <Tooltip
               contentStyle={{
-                background: "rgba(20, 20, 30, 0.6)", // Fundo semi-transparente
+                background: "rgba(20, 20, 30, 0.6)",
                 borderRadius: "12px",
                 padding: "12px 16px",
-                border: "none", // Remove a borda padrão do Tooltip
-                backdropFilter: "blur(12px)", // Glassmorphism
-                WebkitBackdropFilter: "blur(12px)", // Para compatibilidade no Safari
+                border: "none",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
               }}
               itemStyle={{
-                color: "#fff", // Cor do texto
+                color: "#fff",
                 fontSize: "14px",
                 fontWeight: "500",
-                textTransform: "capitalize", // Deixa o texto com a primeira letra maiúscula
+                textTransform: "capitalize",
               }}
               labelStyle={{
-                color: "#fff", // Cor do título (sem neon)
+                color: "#fff",
                 fontWeight: "bold",
               }}
-              cursor={{ stroke: "#8A2BE2", strokeWidth: 2 }} // Linha guia roxa
+              cursor={{ stroke: "#8A2BE2", strokeWidth: 2 }}
               formatter={(value, name) => {
-                // Adiciona "R$" para valores de despesas e rendimentos
                 return name === "despesa" || name === "rendimento" ? `R$ ${value.toFixed(2)}` : value;
               }}
             />
 
 
             <Legend verticalAlign="top" align="right" wrapperStyle={{ color: "#ddd" }} />
-
-            {/* Linhas do gráfico */}
             <Line
               type="monotone"
               dataKey="despesa"
               stroke="url(#despesaGradient)"
               strokeWidth={3}
-              dot={{ r: 4, fill: "#8A2BE2", strokeWidth: 1, stroke: "#DDA0DD" }}  // Roxo neon
+              dot={{ r: 4, fill: "#8A2BE2", strokeWidth: 1, stroke: "#DDA0DD" }}
               activeDot={{ r: 6, fill: "#DDA0DD", strokeWidth: 2, stroke: "#8A2BE2" }}
             />
             <Line
@@ -174,7 +165,7 @@ const DashboardMainChart = () => {
               dataKey="rendimento"
               stroke="url(#rendimentoGradient)"
               strokeWidth={3}
-              dot={{ r: 4, fill: "#00FFFF", strokeWidth: 1, stroke: "#1E90FF" }}  // Azul neon
+              dot={{ r: 4, fill: "#00FFFF", strokeWidth: 1, stroke: "#1E90FF" }}
               activeDot={{ r: 6, fill: "#1E90FF", strokeWidth: 2, stroke: "#00FFFF" }}
             />
           </LineChart>

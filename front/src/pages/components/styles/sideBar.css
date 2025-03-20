@@ -1,7 +1,7 @@
-/* Sidebar */
+
 .sidebar {
   width: 250px;
-  min-height: 100vh; /* Garante que a sidebar ocupe toda a altura da tela */
+  min-height: 100vh;
   background-color: #191919;
   color: white;
   display: flex;
@@ -23,7 +23,6 @@
   border: none;
   color: white;
   cursor: pointer;
-  align-self: flex-start;
 }
 
 .menu-sidebar {
@@ -31,14 +30,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-grow: 1; /* Garante que o conteúdo da sidebar ocupe o espaço disponível */
+  flex-grow: 1;
 }
 
 .menu-items {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Alinha os itens verticalmente */
-  align-items: center; /* Alinha os itens horizontalmente */
+  justify-content: center;
+  align-items: center;
 }
 
 .menu-logout {
@@ -48,7 +47,7 @@
   align-items: center;
 }
 
-/* Sidebar Item */
+
 .sidebar-item {
   display: flex;
   align-items: center;
@@ -58,7 +57,7 @@
   color: white;
   transition: background 0.3s;
   border-radius: 8px;
-  justify-content: center; /* Centraliza o conteúdo dentro do item */
+  justify-content: center;
 }
 
 .sidebar-item:hover {
@@ -71,19 +70,19 @@
 
 @media (max-width: 480px) {
   .sidebar {
-    width: 60px; /* Sidebar mais estreita */
+    width: 60px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centraliza os itens na sidebar */
+    align-items: center;
     padding: 10px 0;
-    min-height: 100vh; /* Garantir que a sidebar ocupe toda a altura da tela */
+    min-height: 100vh;
   }
 
   .menu-sidebar {
     display: flex;
-    flex-direction: column; /* Mantém os itens empilhados */
-    align-items: center; /* Garante alinhamento central */
-    gap: 10px; /* Espaço entre os itens */
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
     width: 100%;
   }
 
@@ -91,12 +90,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Centraliza tudo */
+    justify-content: center;
     width: 100%;
   }
 
   .menu-logout {
-    margin-top: auto; /* Empurra para a parte inferior */
+    margin-top: auto;
     display: flex;
     justify-content: center;
     width: 100%;
@@ -104,9 +103,9 @@
 
   .sidebar-item {
     display: flex;
-    justify-content: center; /* Alinha os ícones horizontalmente */
-    align-items: center; /* Alinha verticalmente */
-    width: 50px; /* Mantém um tamanho uniforme */
+    justify-content: center;
+    align-items: center;
+    width: 50px;
     height: 50px;
     border-radius: 8px;
   }

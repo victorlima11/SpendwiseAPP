@@ -53,7 +53,7 @@ const LoginForm = () => {
           <div className="forgot-password">
               <a href="/reset-password">Esqueceu a senha?</a>
           </div>
-          <button type="submit">Entrar</button>
+          <button className="button-login" type="submit">Entrar</button>
         </form>
         <p>Não tem uma conta? <a className="register" href="/register">Cadastre-se</a></p>
       </div>

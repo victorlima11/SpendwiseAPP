@@ -4,7 +4,7 @@ import './styles/cardAssinatura.css';
 
 const AssinaturasCard = () => {
   const [assinaturasInfo, setAssinaturasInfo] = useState({
-    total_gasto: 0, // Definindo valor padrão
+    total_gasto: 0,
     total_assinaturas: 0,
   });
   const [totalAssinaturas, setTotalAssinaturas] = useState(0);

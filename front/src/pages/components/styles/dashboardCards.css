@@ -1,6 +1,6 @@
 .cards-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Cards flexíveis com número de colunas dinâmico */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 2vw;
   width: 100%;
   min-width: 100%;
@@ -53,10 +53,10 @@
   color: #bbb;
 }
 
-/* Responsividade para telas médias (como 1280x720) */
+
 @media (max-width: 1280px) {
   .cards-container {
-    grid-template-columns: repeat(2, 1fr); /* Limita a 2 colunas */
+    grid-template-columns: repeat(2, 1fr);
     gap: 3vw;
   }
 
@@ -77,22 +77,22 @@
 @media (max-width: 768px) {
   .dashboard-container {
     padding: 10px;
-    max-width: 100%; /* Garante que o container não ultrapasse a tela */
-    overflow-x: hidden; /* Impede rolagem lateral indesejada */
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
   .cards-container {
     display: grid;
-    grid-template-columns: 1fr; /* Apenas uma coluna em telas menores */
+    grid-template-columns: 1fr;
     gap: 20px;
-    max-width: 100%; /* Evita que a grid ultrapasse a tela */
-    overflow-x: hidden; /* Previne estouro lateral */
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
   .card {
     height: 120px;
     padding: 15px;
-    width: 100%; /* Faz com que os cards respeitem o grid */
+    width: 100%;
     box-sizing: border-box;
   }
 
@@ -147,7 +147,7 @@
     font-size: 0.8rem;
   }
 
-  /* Escondendo os ícones dentro dos cards */
+ 
   .card-icon {
     display: none;
   }

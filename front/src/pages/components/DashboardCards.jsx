@@ -133,7 +133,7 @@ const DashboardCards = () => {
             : "Sem dados suficientes"}
         </p>
       </div>
-      <div className="card radar-card"> {/* Card para o gráfico */}
+      <div className="card radar-card">
         <h3 className="card-title">Gráfico de Gastos</h3>
         <div className="radar-card-content">
         {loading ? (

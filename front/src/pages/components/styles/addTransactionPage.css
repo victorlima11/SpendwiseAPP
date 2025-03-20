@@ -5,24 +5,24 @@
 .add-content {
     width: 50%;
     max-width: 600px;
-    margin: 0 auto; /* Centraliza horizontalmente */
+    margin: 0 auto;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centraliza itens dentro */
+    align-items: center;
     justify-content: center;
 }
 
-/* Responsividade para telas menores */
+
 @media (max-width: 1024px) {
     .add-content {
-        width: 70%; /* Ajusta a largura */
+        width: 70%;
     }
 }
 
 @media (max-width: 768px) {
     .add-content {
-        width: 90%; /* Mais espaço em telas menores */
+        width: 90%;
         padding: 15px;
     }
 }

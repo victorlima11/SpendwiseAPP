@@ -17,7 +17,6 @@ const RendimentosCard = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         
-        // Filtrando rendimentos do mês atual
         const currentMonth = new Date().getMonth() + 1;
         const currentYear = new Date().getFullYear();
         

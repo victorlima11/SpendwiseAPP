@@ -16,8 +16,6 @@ const DespesasCard = () => {
         const response = await axios.get("http://localhost:8000/users/despesas/", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        
-        // Filtrando despesas do mês atual
         const currentMonth = new Date().getMonth() + 1;
         const currentYear = new Date().getFullYear();
         
