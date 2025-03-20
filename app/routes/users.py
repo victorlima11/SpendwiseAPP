@@ -52,22 +52,22 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
 
 @router.get("/me/")
 def get_profile(user: dict = Depends(get_current_user), db: Session = Depends(get_db)):
-    # Obter a assinatura do usuário
+    
     assinatura = db.query(models.Assinatura).filter(models.Assinatura.user_id == user['id']).first()
 
     if assinatura:
-        # Se a data de renovação chegou ou passou
+        
         if assinatura.data_renovacao <= datetime.utcnow().date():
-            # Cria a despesa de cobrança de assinatura
+            
             nova_despesa = assinatura.criar_nova_despesa()
             db.add(nova_despesa)
             db.commit()
 
-            # Atualiza a data de renovação para o próximo mês
+            
             assinatura.atualizar_renovacao()
             db.commit()
 
-            # Envia uma mensagem informando sobre a cobrança
+            
             return {"message": f"Assinatura renovada! Nova cobrança gerada. Próxima renovação em {assinatura.data_renovacao}"}
     
     return {"message": f"Bem-vindo, {user['sub']}!"}
@@ -76,10 +76,10 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
 def get_user_from_token(db, token: str):
     try:
-        # Verificar o token e obter os dados do usuário
+        
         user = verify_token(token)
         
-        # Verificar se o token retornou um usuário válido
+        
         if user is None:
             raise ValueError("Token inválido ou expirado")
 
@@ -91,10 +91,10 @@ def get_user_from_token(db, token: str):
         return db_user
 
     except ValueError as e:
-        # Caso o token seja inválido ou o usuário não seja encontrado
+        
         raise ValueError(f"Erro ao autenticar usuário: {str(e)}")
     except Exception as e:
-        # Captura qualquer outro erro não esperado
+        
         raise Exception(f"Erro inesperado: {str(e)}")
 
 
@@ -219,10 +219,10 @@ def delete_despesa(despesa_id: int, db: Session = Depends(get_db), token: str = 
 
 @router.post("/assinaturas/", response_model=schemas.Assinatura_Response)
 def add_assinatura(assinatura: schemas.Assinatura_Create, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    # Obtemos o usuário a partir do token
+    
     db_user = get_user_from_token(db, token)
     
-    # Criamos a nova assinatura associando ao usuário
+    
     new_assinatura = models.Assinatura(
         user_id=db_user.id,
         valor=assinatura.valor,
@@ -240,20 +240,20 @@ def add_assinatura(assinatura: schemas.Assinatura_Create, db: Session = Depends(
 
 @router.get("/assinaturas/", response_model=list[schemas.Assinatura_Response])
 def get_assinaturas(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    # Obtemos o usuário a partir do token
+    
     db_user = get_user_from_token(db, token)
     
-    # Buscamos as assinaturas do usuário no banco de dados
+    
     assinaturas = db.query(models.Assinatura).filter(models.Assinatura.user_id == db_user.id).all()
     
     return assinaturas
 
 @router.get("/assinaturas/{assinatura_id}", response_model=schemas.Assinatura_Response)
 def get_assinatura(assinatura_id: int, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    # Obtemos o usuário a partir do token
+    
     db_user = get_user_from_token(db, token)
     
-    # Buscamos a assinatura do usuário
+    
     assinatura = db.query(models.Assinatura).filter(models.Assinatura.id == assinatura_id, models.Assinatura.user_id == db_user.id).first()
 
     if not assinatura:
@@ -263,16 +263,16 @@ def get_assinatura(assinatura_id: int, db: Session = Depends(get_db), token: str
 
 @router.put("/assinaturas/{assinatura_id}/", response_model=schemas.Assinatura_Response)
 def edit_assinatura(assinatura_id: int, assinatura: schemas.Assinatura_Update, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    # Obtemos o usuário a partir do token
+    
     db_user = get_user_from_token(db, token)
     
-    # Buscamos a assinatura do usuário
+    
     existing_assinatura = db.query(models.Assinatura).filter(models.Assinatura.id == assinatura_id, models.Assinatura.user_id == db_user.id).first()
 
     if not existing_assinatura:
         raise HTTPException(status_code=404, detail="Assinatura não encontrada")
 
-    # Atualizamos a assinatura
+    
     if assinatura.status:
         existing_assinatura.status = assinatura.status
     if assinatura.tipo:
@@ -289,10 +289,10 @@ def edit_assinatura(assinatura_id: int, assinatura: schemas.Assinatura_Update, d
 
 @router.delete("/assinaturas/{assinatura_id}/")
 def delete_assinatura(assinatura_id: int, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    # Obtemos o usuário a partir do token
+    
     db_user = get_user_from_token(db, token)
     
-    # Buscamos a assinatura do usuário
+    
     existing_assinatura = db.query(models.Assinatura).filter(models.Assinatura.id == assinatura_id, models.Assinatura.user_id == db_user.id).first()
 
     if not existing_assinatura:
@@ -305,7 +305,7 @@ def delete_assinatura(assinatura_id: int, db: Session = Depends(get_db), token: 
 
 @router.get("/me/assinaturas/count", response_model=int)
 def contar_assinaturas(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    # Obtemos o usuário a partir do token
+    
     db_user = get_user_from_token(db, token)
     
     num_assinaturas = db.query(models.Assinatura).filter(models.Assinatura.user_id == db_user.id).count()
@@ -316,13 +316,13 @@ def contar_assinaturas(db: Session = Depends(get_db), token: str = Depends(oauth
 def get_assinaturas_info(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     db_user = get_user_from_token(db, token)
     
-    # Buscar as assinaturas do usuário
+    
     assinaturas = db.query(models.Assinatura).filter(models.Assinatura.user_id == db_user.id, models.Assinatura.status == "ativa").all()
     
-    # Calcular o total gasto com assinaturas
+    
     total_gasto = sum([assinatura.valor for assinatura in assinaturas])
     
-    # Contar quantas assinaturas o usuário tem
+    
     total_assinaturas = len(assinaturas)
     
     return {"total_gasto": total_gasto, "total_assinaturas": total_assinaturas}
