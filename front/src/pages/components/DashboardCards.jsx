@@ -22,7 +22,7 @@ const DashboardCards = () => {
 
     const fetchSaldo = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/users/saldo/", {
+        const response = await axios.get("https://spendwiseapp.onrender.com/users/saldo/", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -40,10 +40,10 @@ const DashboardCards = () => {
     const fetchUltimosDados = async () => {
       try {
         const [despesasRes, rendimentosRes] = await Promise.all([
-          axios.get("http://localhost:8000/users/despesas/", {
+          axios.get("https://spendwiseapp.onrender.com/users/despesas/", {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get("http://localhost:8000/users/rendimentos/", {
+          axios.get("https://spendwiseapp.onrender.com/users/rendimentos/", {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);

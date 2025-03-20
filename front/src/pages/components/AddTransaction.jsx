@@ -31,7 +31,7 @@ function AddTransaction() {
     };
 
     try {
-      const url = tipo === 'despesa' ? 'http://localhost:8000/users/despesas/' : 'http://localhost:8000/users/rendimentos/';
+      const url = tipo === 'despesa' ? 'https://spendwiseapp.onrender.com/users/despesas/' : 'https://spendwiseapp.onrender.com/users/rendimentos/';
 
       await axios.post(url, transactionData, {
         headers: {

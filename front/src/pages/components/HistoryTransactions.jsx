@@ -19,11 +19,11 @@ const HistoryTransactions = () => {
         const token = localStorage.getItem("token");
         const params = { month, year };
         const [despesasRes, rendimentosRes] = await Promise.all([
-          axios.get("http://localhost:8000/users/despesas/", {
+          axios.get("https://spendwiseapp.onrender.com/users/despesas/", {
             headers: { Authorization: `Bearer ${token}` },
             params,
           }),
-          axios.get("http://localhost:8000/users/rendimentos/", {
+          axios.get("https://spendwiseapp.onrender.com/users/rendimentos/", {
             headers: { Authorization: `Bearer ${token}` },
             params,
           }),
@@ -55,7 +55,7 @@ const HistoryTransactions = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.delete(
-        `http://localhost:8000/users/${selectedTransaction.type.toLowerCase()}s/${selectedTransaction.id}/`,
+        `https://spendwiseapp.onrender.com/users/${selectedTransaction.type.toLowerCase()}s/${selectedTransaction.id}/`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setTransactions(transactions.filter((t) => t.id !== selectedTransaction.id));
@@ -81,7 +81,7 @@ const HistoryTransactions = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://localhost:8000/users/${selectedTransaction.type.toLowerCase()}s/${selectedTransaction.id}/`,
+        `https://spendwiseapp.onrender.com/users/${selectedTransaction.type.toLowerCase()}s/${selectedTransaction.id}/`,
         selectedTransaction,
         { headers: { Authorization: `Bearer ${token}` } }
       );
