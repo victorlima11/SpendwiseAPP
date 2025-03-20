@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import Transactions from './pages/Transactions';
 import Logout from './pages/Logout';
 import AddTransactionPage from './pages/AddTransactionPage';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/transaction/add" element={<AddTransactionPage />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
