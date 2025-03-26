@@ -1,0 +1,35 @@
+.add-container{
+    display: flex;
+}
+
+.add-content {
+    width: 50%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+@media (max-width: 1024px) {
+    .add-content {
+        width: 70%;
+    }
+}
+
+@media (max-width: 768px) {
+    .add-content {
+        width: 90%;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .add-content {
+        width: 95%;
+        padding: 10px;
+    }
+}

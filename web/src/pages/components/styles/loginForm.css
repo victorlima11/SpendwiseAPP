@@ -1,0 +1,104 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 0 5%;
+  }
+  
+  .login-card {
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 350px;
+    color: #fff;
+    border: solid 1px #fff;
+  }
+  
+  .logo-form {
+    margin-top: 4vh;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+  
+  .login-form {
+    width: 100%;
+  }
+  
+  .login-form input {
+    background-color: #252525;
+    color: #fff;
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+  
+  .forgot-password {
+    text-align: end;
+    padding: 2vh 0.2vw;
+  }
+  
+  .forgot-password a {
+    text-decoration: none;
+    color: #fff;
+    transition: ease-in 0.1s;
+  }
+  
+  .forgot-password a:hover {
+    text-decoration: underline;
+    color: #cfcfcf;
+  }
+  
+  .button-login {
+    font-family: "Ubuntu", sans-serif;
+    width: 100%;
+    padding: 10px;
+    background-color: #fff;
+    color: black;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: ease-in 0.1s;
+  }
+  
+  .button-login:hover {
+    background-color: #cfcfcf;
+  }
+  
+  .register {
+    text-decoration: none;
+    color: rgb(40, 144, 241);
+    transition: ease-in 0.2s;
+  }
+  
+  .register:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 480px) {
+    .login-card {
+      padding: 1.5rem;
+      width: 90%;
+    }
+  
+    .logo-form {
+      font-size: 1.2rem;
+    }
+  
+    .forgot-password {
+      text-align: end;
+      padding: 1vh 0;
+    }
+  
+    .button-login {
+      padding: 12px;
+    }
+  }
+  
